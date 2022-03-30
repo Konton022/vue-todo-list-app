@@ -1,24 +1,23 @@
-# vue-todo-list-app
+# test project VUE todo app
 
-## Project setup
-```
-npm install
-```
+**Тестовое задание для Frontend-разработчика**
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Необходимо реализовать приложение todo-list.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Приложение обладает следующим функционалом:
 
-### Lints and fixes files
-```
-npm run lint
-```
+1. Создание задач;
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+2. Редактирование задач;
+
+3. Можно отмечать выполненные задачи;
+
+4. Удалять задачи;
+
+5. Перемещать мышью порядок задач.
+
+6. Список дел и порядок сортировки хранится в localstorage браузера.
+
+При выполнении данного задания необходимо использовать Vue.
+
+Интерфейс реализуйте так, как считаете нужным, но с условием, что верстка должна быть выполнена без использования библиотек типа bootstrap.
