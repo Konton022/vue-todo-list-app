@@ -1,15 +1,23 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div>
+
+<HeaderBlock />
+<TodoApp />
+<Footer />
+
+ </div>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HeaderBlock from "@/components/HeaderBlock.vue"
+import TodoApp from "@/components/TodoApp.vue"
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HeaderBlock,
+    TodoApp,
   }
 }
 </script>
@@ -21,6 +29,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+
 }
 </style>
