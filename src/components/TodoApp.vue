@@ -1,8 +1,8 @@
 <template>
 	<div class="todoApp">
 	<AddTask />
-	<TodoList todos='todos'/>
-	<div>{{todos}}</div>
+	<TodoList :todos='todos'/>
+	
 	<div></div>
 	</div>
 </template>
@@ -12,15 +12,20 @@ import AddTask from "@/components/AddTask.vue"
 import TodoList from "@/components/TodoList.vue"
 
 export default {
-	data: ()=> ({
-	todos:[
-        {id:1, title:'do homework', isDone: false},
-        {id:2, title:'read book', isDone: false},
-        {id:3, title:'eat pizza', isDone: false},
-        {id:4, title:'watch TV', isDone: false},    
-      ],
-      inputTask: 'hello world!'
-	}),
+	data(){
+		return {
+			todos:[
+				{id:1, title:'do homework', isDone: false},
+				{id:2, title:'read book', isDone: false},
+				{id:3, title:'eat pizza', isDone: false},
+				{id:4, title:'watch TV', isDone: false},  
+				{id:5, title:'go to sleep', isDone: false},  
+				{id:6, title:'get up earlie', isDone: false},
+			],
+			inputTask: 'hello world!'
+		}
+	
+	},
 	components: {
 		AddTask, TodoList
 

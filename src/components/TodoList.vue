@@ -1,9 +1,11 @@
 <template>
-	<ul>
+	<ul v-if='todos.lenght'>
 		<li v-for='todo in todos' :key='todo.id'>
-			{{todo}}
+			{{todo.id}}	{{todo.title}} {{todo.isDone}}
 		</li>
 	</ul>
+	<div v-else>Nothing to do. Add new task</div>
+	<!-- <div>{{todos}}</div> -->
 </template>
 <script>
 
