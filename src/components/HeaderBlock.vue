@@ -23,6 +23,9 @@ export default {
 		align-content: center;
 		padding: 1rem 0;
 		border-bottom: 1px solid black;
+		max-width: 1000px;
+		margin: 0 auto;
+
 	}
 	.header__logo {
 		font-size: 2rem;

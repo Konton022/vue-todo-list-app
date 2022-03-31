@@ -1,18 +1,28 @@
 <template>
 	<div class="todoApp">
-	<AddTodo />
-	<TodoList />
-	
+	<AddTask />
+	<TodoList todos='todos'/>
+	<div>{{todos}}</div>
+	<div></div>
 	</div>
 </template>
 
 <script>
-import AddTodo from "@/components/AddTodo.vue"
+import AddTask from "@/components/AddTask.vue"
 import TodoList from "@/components/TodoList.vue"
 
 export default {
+	data: ()=> ({
+	todos:[
+        {id:1, title:'do homework', isDone: false},
+        {id:2, title:'read book', isDone: false},
+        {id:3, title:'eat pizza', isDone: false},
+        {id:4, title:'watch TV', isDone: false},    
+      ],
+      inputTask: 'hello world!'
+	}),
 	components: {
-		AddTodo, TodoList
+		AddTask, TodoList
 
 	}
 }
@@ -21,8 +31,8 @@ export default {
 <style scoped>
 	.todoApp{
 		border: 1px solid black;
-		max-width: 1000px;
-		margin: 1rem auto;
-		height: 80vh;
+		max-width: 900px;
+		margin: 2rem auto;
+		min-height: 50vh;
 	}
 </style>

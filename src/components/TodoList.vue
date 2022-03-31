@@ -1,22 +1,16 @@
 <template>
 	<ul>
-		<TodoItem/>
-		<TodoItem/>
-		<TodoItem/>
-		<TodoItem/>
-		<TodoItem/>
-		<TodoItem/>
-		<TodoItem/>
-
-
-
+		<li v-for='todo in todos' :key='todo.id'>
+			{{todo}}
+		</li>
 	</ul>
 </template>
 <script>
-import TodoItem from "@/components/TodoItem.vue"
+
 export default {
+	props: ['todos'],
 	components: {
-		TodoItem
+
 	},
 }
 </script>

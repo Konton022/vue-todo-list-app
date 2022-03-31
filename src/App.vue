@@ -1,11 +1,11 @@
 <template>
-<div>
+<!-- <div class="wrapper"> -->
 
 <HeaderBlock />
-<TodoApp inputTask="inputTask"/>
+<TodoApp todos='todos'/>
 <Footer />
 
- </div>
+ <!-- </div> -->
 
 </template>
 
@@ -18,10 +18,10 @@ import TodoApp from "@/components/TodoApp.vue"
 
 export default {
   name: 'App',
+
   data() {
     return {
-      todos:[],
-      inputTask: 'hello world!'
+ 
     }
   },
   components: {
@@ -38,6 +38,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin: 0 auto;
 
 }
 </style>
