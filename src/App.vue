@@ -2,7 +2,7 @@
 <div>
 
 <HeaderBlock />
-<TodoApp />
+<TodoApp inputTask="inputTask"/>
 <Footer />
 
  </div>
@@ -13,8 +13,17 @@
 import HeaderBlock from "@/components/HeaderBlock.vue"
 import TodoApp from "@/components/TodoApp.vue"
 
+
+
+
 export default {
   name: 'App',
+  data() {
+    return {
+      todos:[],
+      inputTask: 'hello world!'
+    }
+  },
   components: {
     HeaderBlock,
     TodoApp,
