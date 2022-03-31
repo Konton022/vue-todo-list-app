@@ -1,5 +1,5 @@
 <template>
-	<ul v-if='todos.lenght'>
+	<ul v-if='todos.length'>
 		<li v-for='todo in todos' :key='todo.id'>
 			{{todo.id}}	{{todo.title}} {{todo.isDone}}
 		</li>
