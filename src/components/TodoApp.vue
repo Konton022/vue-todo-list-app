@@ -29,7 +29,7 @@ export default {
 		},
 		handleSubmit (event) {
 			event.preventDefault()
-			if(this.inputTask) {
+			if(this.inputTask.trim()) {
 					this.todos.push({
 					id: Math.floor(Math.random()*1000),
 					title: this.inputTask,

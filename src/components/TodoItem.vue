@@ -29,6 +29,8 @@ export default {
         
     }
     .todo_title {
+        font-weight: 700;
+        text-transform: uppercase;
         word-break: break-all;
         text-align: left;
         margin: 0 0.5rem;
