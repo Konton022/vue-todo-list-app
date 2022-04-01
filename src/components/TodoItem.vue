@@ -1,9 +1,9 @@
 <template>
 		<li >
             <div class="todo_item">
-                <input type="checkbox" :checked="isDone"/>
-                <p class="todo_title">{{title}}</p>
-                <button class="remove_btn">
+                <input type="checkbox" :checked="isDone" @change="handleCheck(id)"/>
+                <p class="todo_title " :class="{text_through : isDone}">{{title}}</p>
+                <button class="remove_btn" @click="handleRemoveTask(id)">
                     <img class="remove_img" src="https://img.icons8.com/windows/32/000000/delete-forever.png" alt=""/>
                 </button>
             </div>
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-    props:[ 'title', 'id', 'isDone']
+    props:[ 'title', 'id', 'isDone', 'handleCheck', "handleRemoveTask"]
 }
 </script>
 
@@ -42,11 +42,27 @@ export default {
         background-color: transparent; 
         padding: 0;
         margin: 0;
-        border: none;
+        border: 2rx solid black;
+        border-radius: 4px;
+        box-sizing: content-box;
+        cursor: pointer;
+        
     }
+    .remove_btn:hover{
+        border: 2px solid red;
+        
+
+    }
+
+
     .remove_img{
         object-fit: cover;
         object-position: center;
+
+    }
+    .text_through {
+        text-decoration: line-through;
+        color: #0175ff;
     }
     
 </style>

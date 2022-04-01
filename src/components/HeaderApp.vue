@@ -2,8 +2,8 @@
 <div class="header__wrapper">
 	<div class="header__logo">Vue todo App</div>
 	<div class="header__contacts">
-		<a href="https://t.me/KonstantinSavelev">
-			<img src="https://img.icons8.com/external-tal-revivo-bold-tal-revivo/48/000000/external-telegram-messenger-privately-held-company-with-cloud-based-instant-messaging-logo-bold-tal-revivo.png"/>
+		<a href="https://t.me/KonstantinSavelev" target="_blank">
+			<img src="https://img.icons8.com/external-tal-revivo-bold-tal-revivo/48/000000/external-telegram-messenger-privately-held-company-with-cloud-based-instant-messaging-logo-bold-tal-revivo.png" alt=""/>
 		</a>
 	</div>
 </div>

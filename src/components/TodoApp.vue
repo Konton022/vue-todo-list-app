@@ -1,7 +1,16 @@
 <template>
 	<div class="wrapper">
-	<AddTask :inputTask=inputTask :handleInputTask='handleInputTask' :handleSubmit='handleSubmit'/>
-	<TodoList :todos='todos' :todoCounter='todoCounter'/>
+	<AddTask 
+		:inputTask=inputTask 
+		:handleInputTask='handleInputTask' 
+		:handleSubmit='handleSubmit'
+	/>
+	<TodoList 
+		:todos='todos' 
+		:todoCounter='todoCounter' 
+		:handleCheck="handleCheck"
+		:handleRemoveTask="handleRemoveTask"
+	/>
 	</div>
 </template>
 
@@ -14,7 +23,7 @@ export default {
 		return {
 			todos:[{id:333,
 			title:'test message',
-			isDone: true}],
+			isDone: false}],
 			inputTask: ''
 		}
 	
@@ -35,9 +44,21 @@ export default {
 					title: this.inputTask,
 					isDone: false
 				})
-				this.inputTask = ''}
-			
+				this.inputTask = ''
 			}
+			
+		},
+		handleCheck(id) {
+			for(let todo of this.todos){
+				if (todo.id === id) {
+					todo.isDone=!todo.isDone
+				}
+			}
+		},
+		handleRemoveTask (id) {
+			let newTodos = this.todos.filter(item => item.id !== id);
+			this.todos = newTodos;
+		}
 	},
 	computed: {
 		todoCounter() {

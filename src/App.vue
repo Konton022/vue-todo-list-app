@@ -38,7 +38,7 @@ export default {
   border-bottom: 1px solid black;
 }
 .todoApp {
-  min-height: 76vh;
+  min-height: 72vh;
 }
 .footer {
   height: 5vh;
