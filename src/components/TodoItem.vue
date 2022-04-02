@@ -1,11 +1,16 @@
 <template>
 		<li >
             <div class="todo_item">
-                <input type="checkbox" :checked="isDone" @change="handleCheck(id)"/>
-                <p class="todo_title " :class="{text_through : isDone}">{{title}}</p>
-                <button class="remove_btn" @click="handleRemoveTask(id)">
-                    <img class="remove_img" src="https://img.icons8.com/windows/32/000000/delete-forever.png" alt=""/>
-                </button>
+                <div class="todo_title " :class="{text_through : isDone}">{{title}}</div>
+                <dev class="todo_actions">
+                    <input type="checkbox" :checked="isDone" @change="handleCheck(id)"/>
+                    <div class="edit">
+                        <img class="edit_img" src="https://img.icons8.com/glyph-neue/64/000000/edit.png" alt=""/>
+                    </div>
+                    <div class="remove_btn" @click="handleRemoveTask(id)">
+                        <img class="remove_img" src="https://img.icons8.com/windows/32/000000/delete-forever.png" alt=""/>
+                    </div>
+                </dev>
             </div>
 			
 		</li>
@@ -36,12 +41,16 @@ export default {
         margin: 0 0.5rem;
         
     }
-    .remove_btn{
+
+    .todo_actions{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    
+    .edit,.remove_btn{
         height: 32px;
         width: 32px;
-        background-color: transparent; 
-        padding: 0;
-        margin: 0;
         border: 2rx solid black;
         border-radius: 4px;
         box-sizing: content-box;
@@ -54,6 +63,11 @@ export default {
 
     }
 
+    .edit_img {
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
 
     .remove_img{
         object-fit: cover;
