@@ -1,16 +1,21 @@
 <template>
-		<li >
+		<li draggable="true">
             <div class="todo_item">
-                <div class="todo_title " :class="{text_through : isDone}">{{title}}</div>
-                <dev class="todo_actions">
+                <div class="todo_message">
                     <input type="checkbox" :checked="isDone" @change="handleCheck(id)"/>
+                    <div class="todo_title " :class="{text_through : isDone}">{{title}}</div>
+                </div>
+                <div class="todo_actions">
+                    <div class="drag">
+                        <img class="drag_img" src="https://img.icons8.com/fluency-systems-regular/48/000000/resize-four-directions.png"/>
+                    </div>
                     <div class="edit">
                         <img class="edit_img" src="https://img.icons8.com/glyph-neue/64/000000/edit.png" alt=""/>
                     </div>
-                    <div class="remove_btn" @click="handleRemoveTask(id)">
+                    <div class="remove" @click="handleRemoveTask(id)">
                         <img class="remove_img" src="https://img.icons8.com/windows/32/000000/delete-forever.png" alt=""/>
                     </div>
-                </dev>
+                </div>
             </div>
 			
 		</li>
@@ -41,39 +46,41 @@ export default {
         margin: 0 0.5rem;
         
     }
-
+    .todo_message {
+        display: flex;
+        justify-content:last baseline;
+    }
     .todo_actions{
         display: flex;
         justify-content: space-around;
         align-items: center;
     }
     
-    .edit,.remove_btn{
+    .drag, .edit, .remove{
         height: 32px;
         width: 32px;
-        border: 2rx solid black;
         border-radius: 4px;
-        box-sizing: content-box;
         cursor: pointer;
-        
+        margin: 0 0.3rem;    
     }
-    .remove_btn:hover{
-        border: 2px solid red;
-        
-
+    .drag {
+        cursor: move;
+    }
+    .drag:hover {
+        box-shadow: 0 0 5px #0175ff;
+    }
+    .edit:hover {
+        box-shadow: 0 0 5px #0175ff;
+    }
+    .remove:hover{
+        box-shadow: 0 0 5px red;
     }
 
-    .edit_img {
+    .drag_img, .edit_img, .remove_img {
         width: 100%;
         object-fit: cover;
-        object-position: center;
     }
 
-    .remove_img{
-        object-fit: cover;
-        object-position: center;
-
-    }
     .text_through {
         text-decoration: line-through;
         color: #0175ff;

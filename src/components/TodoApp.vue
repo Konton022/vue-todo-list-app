@@ -22,7 +22,7 @@ export default {
 	data(){
 		return {
 			todos:[{id:333,
-			title:'test message',
+			title:'hello world from vue!',
 			isDone: false}],
 			inputTask: ''
 		}
