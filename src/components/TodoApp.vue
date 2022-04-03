@@ -2,12 +2,13 @@
 	<div class="wrapper">
 	<AddTask 
 		:inputTask=inputTask 
-		:handleInputTask='handleInputTask' 
-		:handleSubmit='handleSubmit'
+		:handleInputTask="handleInputTask" 
+		:handleSubmit="handleSubmit"
 	/>
 	<TodoList 
-		:todos='todos' 
-		:todoCounter='todoCounter' 
+		:todos="todos"
+		:editTask = "editTask" 
+		:todoCounter="todoCounter" 
 		:handleCheck="handleCheck"
 		:handleRemoveTask="handleRemoveTask"
 		:handleEditTask = "handleEditTask"
@@ -25,12 +26,12 @@ export default {
 		return {
 			todos:[{
 				id:333,
-				title:'hello world from vue!',
+				title:"hello world from vue!",
 				isDone: false,
 				isEdit: false,
 			}],
-			inputTask: '',
-			editTask: ''
+			inputTask: "",
+			editTask: ""
 		}
 	
 	},
@@ -42,7 +43,7 @@ export default {
 		handleInputTask(event) {
 			this.inputTask = event.target.value;
 		},
-		handleSubmit (event) {
+		handleSubmit(event) {
 			event.preventDefault()
 			if(this.inputTask.trim()) {
 					this.todos.push({
@@ -51,7 +52,7 @@ export default {
 					isDone: false,
 					isEdit: false,
 				})
-				this.inputTask = ''
+				this.inputTask = ""
 			}
 			
 		},
@@ -62,19 +63,21 @@ export default {
 				}
 			}
 		},
-		handleRemoveTask (id) {
+		handleRemoveTask(id) {
 			const newTodos = this.todos.filter(item => item.id !== id);
 			this.todos = newTodos;
 		},
-		handleEditTask (id) {
+		handleEditTask(id) {
+			console.log(id);
 			for( let todo of this.todos){
 				if (todo.id === id ) {
 					todo.isEdit = !todo.isEdit
+					this.editTask = todo.title
 				}
 			}
 		},
-		changeEditTask (todoText){
-			console.log (todoText)
+		changeEditTask(id){
+			console.log("todoText", id, this.editTask)
 		}
 	},
 	computed: {

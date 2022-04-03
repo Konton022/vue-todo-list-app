@@ -3,9 +3,9 @@
 		<input class="input_task" 
 			type="text" 
 			placeholder="Enter your task..." 
-			:value='inputTask' 
-			@input='handleInputTask'
-			@keypress:Enter="handleSubmit"
+			:value="inputTask" 
+			@input="handleInputTask"
+			@keypress.enter="handleSubmit"
 		>
 		<button 
 			class="submit btn" 
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-	props: ['inputTask', 'handleInputTask', 'handleSubmit']
+	props: ["inputTask", "handleInputTask", "handleSubmit"]
 }
 </script>
 

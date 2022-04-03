@@ -2,7 +2,11 @@
 		<li draggable="true">
             <div class="todo_item">
                 <div v-if="isEdit" class="todo_edit">
-                    <input :value="title" type="text" @keypress:Enter="changeEditTask(title)">
+                    <input
+                        type="text"  
+                        :value="title"
+                        @keypress.enter="changeEditTask(id)"
+                    >
                 </div>
                 <div v-else class="todo_message">
                     <input  type="checkbox" :checked="isDone" @change="handleCheck(id)"/>
@@ -25,7 +29,16 @@
 
 <script>
 export default {
-    props:[ 'title', 'id', 'isDone', 'isEdit', 'handleCheck', "handleRemoveTask", "handleEditTask", "changeEditTask"]
+    props:[ 
+        "title", 
+        "id", 
+        "isDone", 
+        "isEdit", 
+        "handleCheck", 
+        "handleRemoveTask", 
+        "handleEditTask", 
+        "changeEditTask",
+    ]
 }
 </script>
 

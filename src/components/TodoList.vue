@@ -1,12 +1,14 @@
 <template>
-	<ul v-if='todos.length'>
+	<ul v-if="todos.length">
 		<TodoItem 
-			v-for='todo in todos' 
-			:key='todo.id' 
-			:title = 'todo.title' 
-			:id='todo.id' 
-			:isDone='todo.isDone' 
+			v-for="todo in todos" 
+			:key="todo.id" 
+			:title = "todo.title" 
+			:id="todo.id" 
+			:isDone="todo.isDone" 
 			:isEdit="todo.isEdit"
+			v-model="todo.title"
+			:editTask = "editTask"
 			:handleCheck="handleCheck"
 			:handleRemoveTask="handleRemoveTask"
 			:handleEditTask = "handleEditTask"
@@ -17,12 +19,20 @@
 			Total tasks: <b>{{todoCounter}}</b>
 		</li>
 	</ul>
-	<div class="todo__empty_block" v-else>Nothing to do. Add new task!</div>
+	<div v-else class="todo__empty_block">Nothing to do. Add new task!</div>
 </template>
 <script>
 import TodoItem from "@/components/TodoItem.vue"
 export default {
-	props: ['todos', 'todoCounter', 'handleCheck', "handleRemoveTask", "handleEditTask", "changeEditTask"],
+	props: [
+		"todos",
+		"editTask", 
+		"todoCounter", 
+		"handleCheck", 
+		"handleRemoveTask", 
+		"handleEditTask", 
+		"changeEditTask"
+	],
 	components: {
 		TodoItem
 	},
