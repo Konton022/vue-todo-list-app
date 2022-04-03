@@ -10,6 +10,8 @@
 		:todoCounter='todoCounter' 
 		:handleCheck="handleCheck"
 		:handleRemoveTask="handleRemoveTask"
+		:handleEditTask = "handleEditTask"
+		:changeEditTask = "changeEditTask"
 	/>
 	</div>
 </template>
@@ -21,10 +23,14 @@ import TodoList from "@/components/TodoList.vue"
 export default {
 	data(){
 		return {
-			todos:[{id:333,
-			title:'hello world from vue!',
-			isDone: false}],
-			inputTask: ''
+			todos:[{
+				id:333,
+				title:'hello world from vue!',
+				isDone: false,
+				isEdit: false,
+			}],
+			inputTask: '',
+			editTask: ''
 		}
 	
 	},
@@ -42,7 +48,8 @@ export default {
 					this.todos.push({
 					id: Math.floor(Math.random()*1000),
 					title: this.inputTask,
-					isDone: false
+					isDone: false,
+					isEdit: false,
 				})
 				this.inputTask = ''
 			}
@@ -56,8 +63,18 @@ export default {
 			}
 		},
 		handleRemoveTask (id) {
-			let newTodos = this.todos.filter(item => item.id !== id);
+			const newTodos = this.todos.filter(item => item.id !== id);
 			this.todos = newTodos;
+		},
+		handleEditTask (id) {
+			for( let todo of this.todos){
+				if (todo.id === id ) {
+					todo.isEdit = !todo.isEdit
+				}
+			}
+		},
+		changeEditTask (todoText){
+			console.log (todoText)
 		}
 	},
 	computed: {

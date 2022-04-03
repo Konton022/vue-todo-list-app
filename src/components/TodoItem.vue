@@ -1,30 +1,31 @@
 <template>
 		<li draggable="true">
             <div class="todo_item">
-                <div class="todo_message">
-                    <input type="checkbox" :checked="isDone" @change="handleCheck(id)"/>
+                <div v-if="isEdit" class="todo_edit">
+                    <input :value="title" type="text" @keypress:Enter="changeEditTask(title)">
+                </div>
+                <div v-else class="todo_message">
+                    <input  type="checkbox" :checked="isDone" @change="handleCheck(id)"/>
                     <div class="todo_title " :class="{text_through : isDone}">{{title}}</div>
                 </div>
                 <div class="todo_actions">
                     <div class="drag">
-                        <img class="drag_img" src="https://img.icons8.com/fluency-systems-regular/48/000000/resize-four-directions.png"/>
+                        <img draggable="false" class="drag_img" src="https://img.icons8.com/fluency-systems-regular/48/000000/resize-four-directions.png"/>
                     </div>
-                    <div class="edit">
-                        <img class="edit_img" src="https://img.icons8.com/glyph-neue/64/000000/edit.png" alt=""/>
+                    <div @click="handleEditTask(id)" class="edit">
+                        <img draggable="false" class="edit_img" src="https://img.icons8.com/glyph-neue/64/000000/edit.png" alt=""/>
                     </div>
                     <div class="remove" @click="handleRemoveTask(id)">
-                        <img class="remove_img" src="https://img.icons8.com/windows/32/000000/delete-forever.png" alt=""/>
+                        <img draggable="false" class="remove_img" src="https://img.icons8.com/windows/32/000000/delete-forever.png" alt=""/>
                     </div>
                 </div>
             </div>
-			
 		</li>
-
 </template>
 
 <script>
 export default {
-    props:[ 'title', 'id', 'isDone', 'handleCheck', "handleRemoveTask"]
+    props:[ 'title', 'id', 'isDone', 'isEdit', 'handleCheck', "handleRemoveTask", "handleEditTask", "changeEditTask"]
 }
 </script>
 
