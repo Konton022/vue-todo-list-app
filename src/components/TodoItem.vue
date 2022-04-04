@@ -3,6 +3,7 @@
             <div class="todo_item">
                 <div v-if="isEdit" class="todo_edit">
                     <input
+                        class="todo_input"
                         type="text"  
                         :value="defaultTask"
                         @input="changeEditTask"
@@ -71,6 +72,15 @@ export default {
         margin: 0 0.5rem;
         
     }
+    .todo_edit {
+        width: 100%;
+    }
+    .todo_input {
+        font: inherit;
+        border: none;
+        width: 90%;    
+    }
+    
     .todo_message {
         display: flex;
         justify-content:last baseline;
@@ -110,5 +120,7 @@ export default {
         text-decoration: line-through;
         color: #0175ff;
     }
+
+
     
 </style>

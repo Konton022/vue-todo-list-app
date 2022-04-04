@@ -33,6 +33,9 @@ export default {
   max-width: 1000px;
 
 }
+input:focus {
+  outline-color: #0175ff;
+}
 .header {
   height: 5vh;
   border-bottom: 1px solid black;
