@@ -7,12 +7,10 @@
 			:id="todo.id" 
 			:isDone="todo.isDone" 
 			:isEdit="todo.isEdit"
-			:editTask = "editTask"
 			:handleCheck="handleCheck"
 			:handleRemoveTask="handleRemoveTask"
 			:handleEditTask = "handleEditTask"
 			:handleSubmitEditTask = "handleSubmitEditTask"
-			:changeEditTask = "changeEditTask"
 		/>
 		<hr />
 		<li >
@@ -25,14 +23,12 @@
 import TodoItem from "@/components/TodoItem.vue"
 export default {
 	props: [
-		"todos",
-		"editTask", 
+		"todos", 
 		"todoCounter", 
 		"handleCheck", 
 		"handleRemoveTask", 
 		"handleEditTask", 
 		"handleSubmitEditTask",
-		"changeEditTask"
 	],
 	components: {
 		TodoItem

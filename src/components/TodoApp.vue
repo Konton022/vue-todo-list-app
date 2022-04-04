@@ -7,13 +7,11 @@
 	/>
 	<TodoList 
 		:todos="todos"
-		:editTask = "editTask" 
 		:todoCounter="todoCounter" 
 		:handleCheck="handleCheck"
 		:handleRemoveTask="handleRemoveTask"
 		:handleEditTask = "handleEditTask"
 		:handleSubmitEditTask = "handleSubmitEditTask"
-		:changeEditTask = "changeEditTask"
 	/>
 	</div>
 </template>
@@ -31,8 +29,7 @@ export default {
 				isDone: false,
 				isEdit: false,
 			}],
-			inputTask: "",
-			editTask: ""
+			inputTask: ""
 		}
 	
 	},
@@ -69,27 +66,19 @@ export default {
 			this.todos = newTodos;
 		},
 		handleEditTask(id) {
-			console.log(id);
 			for( let todo of this.todos){
 				if (todo.id === id ) {
 					todo.isEdit = !todo.isEdit
-					this.editTask = todo.title
 				}
 			}
 		},
-		handleSubmitEditTask(id){
-			console.log("todoText", id, this.editTask)
+		handleSubmitEditTask(id, value){
 			for (let todo of this.todos){
 				if (todo.id === id) {
-					todo.title = this.editTask
+					todo.title = value
 					todo.isEdit = false
 				}
 			}
-			this.editTask = "";
-
-		},
-		changeEditTask(event){
-			this.editTask = event.target.value
 		}
 	},
 	computed: {
