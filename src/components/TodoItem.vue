@@ -78,7 +78,8 @@ export default {
     .todo_input {
         font: inherit;
         border: none;
-        width: 90%;    
+        width: 90%; 
+        padding: 5px 2px;   
     }
     
     .todo_message {
