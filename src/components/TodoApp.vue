@@ -31,7 +31,11 @@ export default {
 			}],
 			inputTask: ""
 		}
-	
+	},
+	mounted() {
+		if(localStorage.todos) {
+			this.todos = JSON.parse(localStorage.getItem("todos"))
+		}
 	},
 	components: {
 		AddTask, TodoList
@@ -52,6 +56,7 @@ export default {
 				})
 				this.inputTask = ""
 			}
+			this.saveToLocalStorage();
 			
 		},
 		handleCheck(id) {
@@ -64,6 +69,7 @@ export default {
 		handleRemoveTask(id) {
 			const newTodos = this.todos.filter(item => item.id !== id);
 			this.todos = newTodos;
+			this.saveToLocalStorage();
 		},
 		handleEditTask(id) {
 			for( let todo of this.todos){
@@ -79,14 +85,17 @@ export default {
 					todo.isEdit = false
 				}
 			}
+			this.saveToLocalStorage(this.todos);
+		}, 
+		saveToLocalStorage() {
+			localStorage.setItem("todos", JSON.stringify(this.todos))
 		}
 	},
 	computed: {
 		todoCounter() {
 			return this.todos.length
 		}
-	}
-
+	},
 }
 </script>
 
