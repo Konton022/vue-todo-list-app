@@ -3,10 +3,11 @@
             <div class="todo_item">
                 <div v-if="isEdit" class="todo_edit">
                     <input
+                        class="todo_input"
                         type="text"  
-                        :value="editTask"
+                        :value="defaultTask"
                         @input="changeEditTask"
-                        @keypress.enter="handleSubmitEditTask(id)"
+                        @keypress.enter="handleSubmitEditTask(id, defaultTask)"
                     >
                 </div>
                 <div v-else class="todo_message">
@@ -34,14 +35,22 @@ export default {
         "title", 
         "id", 
         "isDone", 
-        "isEdit",
-        "editTask", 
+        "isEdit", 
         "handleCheck", 
         "handleRemoveTask", 
         "handleEditTask", 
         "handleSubmitEditTask",
-        "changeEditTask"
-    ]
+    ], 
+    data() {
+        return {
+            defaultTask: this.title
+        }
+    }, methods: {
+        changeEditTask(event){
+			console.log(event.target.value);
+            this.defaultTask = event.target.value;
+		}
+    }
 }
 </script>
 
@@ -63,6 +72,15 @@ export default {
         margin: 0 0.5rem;
         
     }
+    .todo_edit {
+        width: 100%;
+    }
+    .todo_input {
+        font: inherit;
+        border: none;
+        width: 90%;    
+    }
+    
     .todo_message {
         display: flex;
         justify-content:last baseline;
@@ -102,5 +120,7 @@ export default {
         text-decoration: line-through;
         color: #0175ff;
     }
+
+
     
 </style>

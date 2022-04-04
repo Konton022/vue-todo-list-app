@@ -42,9 +42,7 @@ form {
 	padding: 2px 5px;
 	margin-right: 0.5rem;
 }
-.input_task:focus{
-	border-color: #0175ff;
-}
+
 .btn {
 	height: 40px;
 	width: 40px;
