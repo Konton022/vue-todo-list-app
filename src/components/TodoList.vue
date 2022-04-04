@@ -7,11 +7,11 @@
 			:id="todo.id" 
 			:isDone="todo.isDone" 
 			:isEdit="todo.isEdit"
-			v-model="todo.title"
 			:editTask = "editTask"
 			:handleCheck="handleCheck"
 			:handleRemoveTask="handleRemoveTask"
 			:handleEditTask = "handleEditTask"
+			:handleSubmitEditTask = "handleSubmitEditTask"
 			:changeEditTask = "changeEditTask"
 		/>
 		<hr />
@@ -31,6 +31,7 @@ export default {
 		"handleCheck", 
 		"handleRemoveTask", 
 		"handleEditTask", 
+		"handleSubmitEditTask",
 		"changeEditTask"
 	],
 	components: {

@@ -12,6 +12,7 @@
 		:handleCheck="handleCheck"
 		:handleRemoveTask="handleRemoveTask"
 		:handleEditTask = "handleEditTask"
+		:handleSubmitEditTask = "handleSubmitEditTask"
 		:changeEditTask = "changeEditTask"
 	/>
 	</div>
@@ -76,8 +77,19 @@ export default {
 				}
 			}
 		},
-		changeEditTask(id){
+		handleSubmitEditTask(id){
 			console.log("todoText", id, this.editTask)
+			for (let todo of this.todos){
+				if (todo.id === id) {
+					todo.title = this.editTask
+					todo.isEdit = false
+				}
+			}
+			this.editTask = "";
+
+		},
+		changeEditTask(event){
+			this.editTask = event.target.value
 		}
 	},
 	computed: {

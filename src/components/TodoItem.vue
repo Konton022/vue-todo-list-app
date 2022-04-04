@@ -4,8 +4,9 @@
                 <div v-if="isEdit" class="todo_edit">
                     <input
                         type="text"  
-                        :value="title"
-                        @keypress.enter="changeEditTask(id)"
+                        :value="editTask"
+                        @input="changeEditTask"
+                        @keypress.enter="handleSubmitEditTask(id)"
                     >
                 </div>
                 <div v-else class="todo_message">
@@ -33,11 +34,13 @@ export default {
         "title", 
         "id", 
         "isDone", 
-        "isEdit", 
+        "isEdit",
+        "editTask", 
         "handleCheck", 
         "handleRemoveTask", 
         "handleEditTask", 
-        "changeEditTask",
+        "handleSubmitEditTask",
+        "changeEditTask"
     ]
 }
 </script>
