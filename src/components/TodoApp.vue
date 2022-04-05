@@ -12,6 +12,8 @@
 		:handleRemoveTask="handleRemoveTask"
 		:handleEditTask = "handleEditTask"
 		:handleSubmitEditTask = "handleSubmitEditTask"
+		:onDragStart = "onDragStart"
+		:onDrop = "onDrop"	
 	/>
 	</div>
 </template>
@@ -38,8 +40,7 @@ export default {
 		}
 	},
 	components: {
-		AddTask, TodoList
-
+		AddTask, TodoList,
 	},
 	methods: {
 		handleInputTask(event) {
@@ -65,6 +66,7 @@ export default {
 					todo.isDone=!todo.isDone
 				}
 			}
+			this.saveToLocalStorage();
 		},
 		handleRemoveTask(id) {
 			const newTodos = this.todos.filter(item => item.id !== id);
@@ -83,13 +85,28 @@ export default {
 				if (todo.id === id) {
 					todo.title = value
 					todo.isEdit = false
+					todo.isDone = false
 				}
 			}
-			this.saveToLocalStorage(this.todos);
+			this.saveToLocalStorage();
 		}, 
 		saveToLocalStorage() {
 			localStorage.setItem("todos", JSON.stringify(this.todos))
-		}
+		},
+		onDragStart(event, item){
+			event.dataTransfer.dropEffect = 'move'
+      		event.dataTransfer.effectAllowed = 'move'
+			event.dataTransfer.setData("todoId", item.id.toString())
+		},
+		onDrop(event, id){
+			const draggingId = parseInt(event.dataTransfer.getData("todoId"))
+			const fromIndex = this.todos.findIndex(item => item.id === draggingId);
+			const toIndex = this.todos.findIndex(item => item.id === id);
+			const currentItem = this.todos[fromIndex]
+			this.todos.splice(fromIndex, 1)
+			this.todos.splice(toIndex, 0, currentItem)
+			this.saveToLocalStorage()			
+		},
 	},
 	computed: {
 		todoCounter() {
@@ -105,6 +122,5 @@ export default {
 		max-width: 900px;
 		margin: 1rem auto;
 		padding: 1rem;
-		/* min-height: 50vh; */
 	}
 </style>
