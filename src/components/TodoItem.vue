@@ -11,8 +11,18 @@
                     >
                 </div>
                 <div v-else class="todo_message">
-                    <input  type="checkbox" :checked="isDone" @change="handleCheck(id)"/>
-                    <div class="todo_title " :class="{text_through : isDone}">{{title}}</div>
+                    <input  
+                        type="checkbox" 
+                        :checked="isDone" 
+                        @change="handleCheck(id)"
+                    />
+                    <div 
+                        class="todo_title " 
+                        :class="{text_through : isDone}" 
+                        @click="handleCheck(id)"
+                    >
+                        {{title}}
+                    </div>
                 </div>
                 <div class="todo_actions">
                     <div class="drag">
@@ -47,7 +57,6 @@ export default {
         }
     }, methods: {
         changeEditTask(event){
-			console.log(event.target.value);
             this.defaultTask = event.target.value;
 		}
     }

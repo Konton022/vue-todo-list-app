@@ -66,6 +66,7 @@ export default {
 					todo.isDone=!todo.isDone
 				}
 			}
+			this.saveToLocalStorage();
 		},
 		handleRemoveTask(id) {
 			const newTodos = this.todos.filter(item => item.id !== id);
@@ -84,6 +85,7 @@ export default {
 				if (todo.id === id) {
 					todo.title = value
 					todo.isEdit = false
+					todo.isDone = false
 				}
 			}
 			this.saveToLocalStorage();
