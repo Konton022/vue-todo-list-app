@@ -1,23 +1,31 @@
 <template>
-	<ul v-if="todos.length">
-		<TodoItem 
-			v-for="todo in todos" 
-			:key="todo.id" 
-			:title = "todo.title" 
-			:id="todo.id" 
-			:isDone="todo.isDone" 
-			:isEdit="todo.isEdit"
-			:handleCheck="handleCheck"
-			:handleRemoveTask="handleRemoveTask"
-			:handleEditTask = "handleEditTask"
-			:handleSubmitEditTask = "handleSubmitEditTask"
-		/>
-		<hr />
-		<li >
-			Total tasks: <b>{{todoCounter}}</b>
-		</li>
-	</ul>
-	<div v-else class="todo__empty_block">Nothing to do. Add new task!</div>
+		<ul 
+			v-if="todos.length" 
+			@dragover.prevent 
+			@dragenter.prevent
+			
+		>
+			<TodoItem 
+				v-for="todo in todos" 
+				:key="todo.id" 
+				:title = "todo.title" 
+				:id="todo.id" 
+				:isDone="todo.isDone" 
+				:isEdit="todo.isEdit"
+				:handleCheck="handleCheck"
+				:handleRemoveTask="handleRemoveTask"
+				:handleEditTask = "handleEditTask"
+				:handleSubmitEditTask = "handleSubmitEditTask"
+				draggable="true"
+				@dragstart="onDragStart($event, todo)"
+				@drop="onDrop($event, todo.id)"
+			/>
+			<hr />
+			<li >
+				Total tasks: <b>{{todoCounter}}</b>
+			</li>
+		</ul>
+		<div v-else class="todo__empty_block">Nothing to do. Add new task!</div>
 </template>
 <script>
 import TodoItem from "@/components/TodoItem.vue"
@@ -29,6 +37,8 @@ export default {
 		"handleRemoveTask", 
 		"handleEditTask", 
 		"handleSubmitEditTask",
+		"onDragStart",
+		"onDrop"
 	],
 	components: {
 		TodoItem
