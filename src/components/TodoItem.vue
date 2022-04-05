@@ -130,7 +130,14 @@ export default {
         text-decoration: line-through;
         color: #0175ff;
     }
-
-
-    
+    @media (max-width: 400px) {
+        .todo_title {
+            font-size:0.8rem;
+        }
+        .drag, .edit, .remove{
+        height: 24px;
+        width: 24px;
+        margin: 0 0.1rem;    
+        }
+    }    
 </style>

@@ -26,7 +26,7 @@ export default {
 	data(){
 		return {
 			todos:[{
-				id:333,
+				id: Math.floor(Math.random()*1000),
 				title:"hello world from vue!",
 				isDone: false,
 				isEdit: false,
