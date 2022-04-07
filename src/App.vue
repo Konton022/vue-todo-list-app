@@ -1,22 +1,23 @@
 <template>
-{{$store.todos[0]}}
-  <!-- <HeaderApp class="header"/>
+  <HeaderApp class="header"/>
   <TodoApp class="todoApp"/>
-  <FooterApp class="footer"/> -->
+  <FooterApp class="footer"/>
+
 </template>
 
 <script>
-//import HeaderApp from "@/components/HeaderApp.vue"
-//import TodoApp from "@/components/TodoApp.vue"
-//import FooterApp from "@/components/FooterApp.vue"
+
+import HeaderApp from "@/components/HeaderApp.vue"
+import TodoApp from "@/components/TodoApp.vue"
+import FooterApp from "@/components/FooterApp.vue"
 
 export default {
-  name: 'App',
-  // components: {
-  //   HeaderApp,
-  //   TodoApp,
-  //   FooterApp
-  // }
+  name: 'App', 
+  components: {
+    HeaderApp,
+    TodoApp,
+    FooterApp
+  }
 }
 </script>
 
