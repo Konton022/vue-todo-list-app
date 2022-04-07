@@ -5,7 +5,7 @@
 		:handleInputTask="handleInputTask" 
 		:handleSubmit="handleSubmit"
 	/>
-	<!-- <TodoList 
+	<TodoList 
 		:todos="todos"
 		:todoCounter="todoCounter" 
 		:handleCheck="handleCheck"
@@ -14,13 +14,13 @@
 		:handleSubmitEditTask = "handleSubmitEditTask"
 		:onDragStart = "onDragStart"
 		:onDrop = "onDrop"	
-	/> -->
+	/>
 	</div>
 </template>
 
 <script>
 import AddTask from "@/components/AddTask.vue"
-// import TodoList from "@/components/TodoList.vue"
+import TodoList from "@/components/TodoList.vue"
 
 export default {
 	// data(){
@@ -41,7 +41,7 @@ export default {
 	},
 	components: {
 		AddTask, 
-		// TodoList,
+		TodoList,
 	},
 	//methods: {
 	// 	handleInputTask(event) {

@@ -1,12 +1,12 @@
 <template>
 		<ul 
-			v-if="todos.length" 
+			v-if="allTodosCounter" 
 			@dragover.prevent 
 			@dragenter.prevent
 			
 		>
 			<TodoItem 
-				v-for="todo in todos" 
+				v-for="todo in allTodos" 
 				:key="todo.id" 
 				:title = "todo.title" 
 				:id="todo.id" 
@@ -22,27 +22,38 @@
 			/>
 			<hr />
 			<li >
-				Total tasks: <b>{{todoCounter}}</b>
+				Total tasks: <b>{{allTodosCounter}}</b>
 			</li>
 		</ul>
 		<div v-else class="todo__empty_block">Nothing to do. Add new task!</div>
 </template>
 <script>
 import TodoItem from "@/components/TodoItem.vue"
+import { mapGetters } from "vuex"
 export default {
-	props: [
-		"todos", 
-		"todoCounter", 
-		"handleCheck", 
-		"handleRemoveTask", 
-		"handleEditTask", 
-		"handleSubmitEditTask",
-		"onDragStart",
-		"onDrop"
-	],
+	// props: [
+	// 	"todos", 
+	// 	"todoCounter", 
+	// 	"handleCheck", 
+	// 	"handleRemoveTask", 
+	// 	"handleEditTask", 
+	// 	"handleSubmitEditTask",
+	// 	"onDragStart",
+	// 	"onDrop"
+	// ],
 	components: {
 		TodoItem
 	},
+	methods:{
+		
+	},
+	computed: {
+		...mapGetters([
+			"allTodosCounter", 
+			"allTodos"
+		])
+
+	}
 }
 </script>
 <style scoped>

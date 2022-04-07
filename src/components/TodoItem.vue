@@ -31,7 +31,7 @@
                     <div @click="handleEditTask(id)" class="edit">
                         <img draggable="false" class="edit_img" src="https://img.icons8.com/glyph-neue/64/000000/edit.png" alt=""/>
                     </div>
-                    <div class="remove" @click="handleRemoveTask(id)">
+                    <div class="remove" @click="removeTask(id)">
                         <img draggable="false" class="remove_img" src="https://img.icons8.com/windows/32/000000/delete-forever.png" alt=""/>
                     </div>
                 </div>
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import {mapMutations} from "vuex"
 export default {
     props:[ 
         "title", 
@@ -55,11 +56,16 @@ export default {
         return {
             defaultTask: this.title
         }
-    }, methods: {
-        changeEditTask(event){
-            this.defaultTask = event.target.value;
-		}
-    }
+    }, 
+    methods: {
+        ...mapMutations([
+            "removeTask"
+        ]),
+        // changeEditTask(event){
+        //     this.defaultTask = event.target.value;
+		// }, 
+
+    }, 
 }
 </script>
 

@@ -1,15 +1,11 @@
 <template>
-	<form action="" class="todoForm">
+	<form action="" class="todoForm" @submit.prevent="addNewTask">
 		<input class="input_task" 
 			type="text" 
 			placeholder="Enter your task..." 
-			:value="inputTask" 
-			@input="handleInputTask"
-			@keypress.enter="handleSubmit"
+			v-model="inputTask" 
 		>
-		<button 
-			class="submit btn" 
-			v-on:click="handleSubmit">
+		<button class="submit btn">
 			<img class="btn__img" src="https://img.icons8.com/material-outlined/48/000000/add.png"/>
 		</button>
 	</form>
@@ -17,7 +13,21 @@
 
 <script>
 export default {
-	props: ["inputTask", "handleInputTask", "handleSubmit"]
+	// props: ["inputTask", "handleInputTask", "handleSubmit"]
+	data(){
+		return {
+			inputTask: ""
+		}
+	}, methods: {
+        addNewTask() {
+			if(this.inputTask){
+				this.$store.commit("addNewTask", this.inputTask)
+				this.inputTask = ""
+			}
+			
+		}	
+
+	}
 }
 </script>
 
