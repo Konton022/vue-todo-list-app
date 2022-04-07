@@ -23,17 +23,17 @@ import AddTask from "@/components/AddTask.vue"
 import TodoList from "@/components/TodoList.vue"
 
 export default {
-	data(){
-		return {
-			todos:[{
-				id: Math.floor(Math.random()*1000),
-				title:"hello world from vue!",
-				isDone: false,
-				isEdit: false,
-			}],
-			inputTask: ""
-		}
-	},
+	// data(){
+	// 	return {
+	// 		todos:[{
+	// 			id: Math.floor(Math.random()*1000),
+	// 			title:"hello world from vue!",
+	// 			isDone: false,
+	// 			isEdit: false,
+	// 		}],
+	// 		inputTask: ""
+	// 	}
+	// },
 	mounted() {
 		if(localStorage.todos) {
 			this.todos = JSON.parse(localStorage.getItem("todos"))
