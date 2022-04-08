@@ -6,7 +6,7 @@ const store = createStore({
         return {
             todos: [
                 {
-                    id: Math.floor(Math.random() * 1000),
+                    id: nanoid(4),
                     title: 'hello world from VUEX!',
                     isDone: false,
                     isEdit: false,
@@ -25,8 +25,19 @@ const store = createStore({
         },
         removeTask(state, id) {
             console.log(id);
-            state.todos.filter((todo) => todo.id !== id);
+            state.todos = state.todos.filter((todo) => todo.id !== id);
         },
+        onEditTask(state, id){
+            state.todos = state.todos.map( todo => {
+                if(todo.id === id) {
+                    todo.isEdit = !todo.isEdit
+                }
+                return todo
+            })
+        }, 
+        submitEditTask(state, todoId, value){
+            console.log(todoId, value);
+        }
     },
     getters: {
         allTodos(state) {

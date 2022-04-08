@@ -1,37 +1,36 @@
 <template>
 		<li draggable="true">
             <div class="todo_item">
-                <div v-if="isEdit" class="todo_edit">
+                <div v-if="todo.isEdit" class="todo_edit">
                     <input
                         class="todo_input"
                         type="text"  
-                        :value="defaultTask"
-                        @input="changeEditTask"
-                        @keypress.enter="handleSubmitEditTask(id, defaultTask)"
+                        v-model = "currentValueTask"
+                        @keypress.enter="submitEditTask(currentValueTask)"
                     >
                 </div>
                 <div v-else class="todo_message">
                     <input  
                         type="checkbox" 
-                        :checked="isDone" 
-                        @change="handleCheck(id)"
+                        :checked="todo.isDone" 
+                        @change="handleCheck(todo.id)"
                     />
                     <div 
-                        class="todo_title " 
-                        :class="{text_through : isDone}" 
-                        @click="handleCheck(id)"
+                        class="todo_title" 
+                        :class="{text_through : todo.isDone}" 
+                        @click="handleCheck(todo.id)"
                     >
-                        {{title}}
+                        {{todo.title}}
                     </div>
                 </div>
                 <div class="todo_actions">
                     <div class="drag">
                         <img draggable="false" class="drag_img" src="https://img.icons8.com/fluency-systems-regular/48/000000/resize-four-directions.png"/>
                     </div>
-                    <div @click="handleEditTask(id)" class="edit">
+                    <div @click="onEditTask(todo.id)" class="edit">
                         <img draggable="false" class="edit_img" src="https://img.icons8.com/glyph-neue/64/000000/edit.png" alt=""/>
                     </div>
-                    <div class="remove" @click="removeTask(id)">
+                    <div class="remove" @click="removeTask(todo.id)">
                         <img draggable="false" class="remove_img" src="https://img.icons8.com/windows/32/000000/delete-forever.png" alt=""/>
                     </div>
                 </div>
@@ -43,29 +42,28 @@
 import {mapMutations} from "vuex"
 export default {
     props:[ 
-        "title", 
-        "id", 
-        "isDone", 
-        "isEdit", 
-        "handleCheck", 
-        "handleRemoveTask", 
-        "handleEditTask", 
-        "handleSubmitEditTask",
+        "todo"
     ], 
     data() {
         return {
-            defaultTask: this.title
+            currentValueTask: this.todo.title
         }
     }, 
     methods: {
         ...mapMutations([
-            "removeTask"
+            "removeTask", 
+            "onEditTask",
+            "submitEditTask"
         ]),
         // changeEditTask(event){
         //     this.defaultTask = event.target.value;
 		// }, 
-
-    }, 
+    },
+    computed: {
+        // todo() {
+        //     return this.$store.getters.currentTodoItem(this.id)
+        // }
+    } 
 }
 </script>
 
