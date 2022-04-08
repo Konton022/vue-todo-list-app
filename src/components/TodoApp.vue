@@ -1,17 +1,7 @@
 <template>
 	<div class="wrapper">
-	<AddTask 
-		:inputTask=inputTask 
-		:handleInputTask="handleInputTask" 
-		:handleSubmit="handleSubmit"
-	/>
+	<AddTask />
 	<TodoList 
-		:todos="todos"
-		:todoCounter="todoCounter" 
-		:handleCheck="handleCheck"
-		:handleRemoveTask="handleRemoveTask"
-		:handleEditTask = "handleEditTask"
-		:handleSubmitEditTask = "handleSubmitEditTask"
 		:onDragStart = "onDragStart"
 		:onDrop = "onDrop"	
 	/>

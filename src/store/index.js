@@ -24,20 +24,34 @@ const store = createStore({
             });
         },
         removeTask(state, id) {
-            console.log(id);
             state.todos = state.todos.filter((todo) => todo.id !== id);
         },
-        onEditTask(state, id){
-            state.todos = state.todos.map( todo => {
-                if(todo.id === id) {
-                    todo.isEdit = !todo.isEdit
+        onEditTask(state, id) {
+            state.todos.map((todo) => {
+                if (todo.id === id) {
+                    todo.isEdit = !todo.isEdit;
                 }
-                return todo
-            })
-        }, 
-        submitEditTask(state, todoId, value){
-            console.log(todoId, value);
-        }
+                return todo;
+            });
+        },
+        submitEditTask(state, [todoId, value]) {
+            state.todos.map((todo) => {
+                if (todo.id === todoId) {
+                    todo.title = value;
+                    todo.isEdit = !todo.isEdit;
+                    todo.isDone = false;
+                }
+                return todo;
+            });
+        },
+        checkTodoDone(state, id) {
+            state.todos.map((todo) => {
+                if (todo.id === id) {
+                    todo.isDone = !todo.isDone;
+                }
+                return todo;
+            });
+        },
     },
     getters: {
         allTodos(state) {

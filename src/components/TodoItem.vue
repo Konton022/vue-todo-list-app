@@ -6,19 +6,19 @@
                         class="todo_input"
                         type="text"  
                         v-model = "currentValueTask"
-                        @keypress.enter="submitEditTask(currentValueTask)"
+                        @keypress.enter="submitEditTask([todo.id, currentValueTask])"
                     >
                 </div>
                 <div v-else class="todo_message">
                     <input  
                         type="checkbox" 
                         :checked="todo.isDone" 
-                        @change="handleCheck(todo.id)"
+                        @change="checkTodoDone(todo.id)"
                     />
                     <div 
                         class="todo_title" 
                         :class="{text_through : todo.isDone}" 
-                        @click="handleCheck(todo.id)"
+                        @click="checkTodoDone(todo.id)"
                     >
                         {{todo.title}}
                     </div>
@@ -53,17 +53,10 @@ export default {
         ...mapMutations([
             "removeTask", 
             "onEditTask",
-            "submitEditTask"
-        ]),
-        // changeEditTask(event){
-        //     this.defaultTask = event.target.value;
-		// }, 
-    },
-    computed: {
-        // todo() {
-        //     return this.$store.getters.currentTodoItem(this.id)
-        // }
-    } 
+            "submitEditTask",
+            "checkTodoDone"
+        ])
+    }
 }
 </script>
 
