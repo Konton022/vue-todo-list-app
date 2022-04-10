@@ -14,7 +14,18 @@ const store = createStore({
             ],
         };
     },
+    actions: {
+        getTodosFromLocalStorage({ commit }) {
+            if (localStorage.todos) {
+                const todos = JSON.parse(localStorage.todos);
+                commit('updateTodos', todos);
+            }
+        },
+    },
     mutations: {
+        updateTodos(state, todos) {
+            state.todos = todos;
+        },
         addNewTask(state, newTask) {
             state.todos.push({
                 id: nanoid(4),
