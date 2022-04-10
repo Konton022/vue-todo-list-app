@@ -5,10 +5,13 @@
 		:onDragStart = "onDragStart"
 		:onDrop = "onDrop"	
 	/>
+
+	{{allTodos}}
 	</div>
 </template>
 
 <script>
+import {mapActions, mapGetters} from "vuex"
 import AddTask from "@/components/AddTask.vue"
 import TodoList from "@/components/TodoList.vue"
 //import {mapMutations, mapActions} from "vuex"
@@ -26,6 +29,7 @@ export default {
 	// 	}
 	// },
 	mounted() {
+		this.getTodosFromLocalStorage();
 		// if(localStorage.todos) {
 		// 	this.todos = JSON.parse(localStorage.getItem("todos"))
 		// }
@@ -34,6 +38,30 @@ export default {
 		AddTask, 
 		TodoList,
 	},
+
+	methods: {
+		...mapActions(["getTodosFromLocalStorage", "setTodosToLocalStorage"]),
+		...mapGetters(["allTodos"])
+	},
+	computed:{
+		...mapGetters(["allTodos"])
+	}, 
+	watch:{
+		allTodos(){
+			console.log('watching...');
+		}
+	}
+	// watch: {
+	// 	"todos":{todos(newValue, oldValue){
+	// 		console.log('watching...', newValue, oldValue)}, deep:true
+	// 	}
+	// 	// : {function(){
+	// 	// 	console.log('watching...');
+	// 	// }, deep:true}
+		
+	// }
+
+	
 	//methods: {
 	// 	handleInputTask(event) {
 	// 		this.inputTask = event.target.value;

@@ -15,7 +15,12 @@ const store = createStore({
         };
     },
     actions: {
+        setTodosToLocalStorage() {
+            console.log('set to localStorage');
+            localStorage.setItem('todos', JSON.stringify(this.$state.todos));
+        },
         getTodosFromLocalStorage({ commit }) {
+            console.log('action local store');
             if (localStorage.todos) {
                 const todos = JSON.parse(localStorage.todos);
                 commit('updateTodos', todos);
