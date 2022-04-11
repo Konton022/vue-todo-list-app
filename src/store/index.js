@@ -79,4 +79,8 @@ const store = createStore({
     },
 });
 
+store.subscribe((mutations, state) => {
+    console.log('subscribing....');
+    localStorage.setItem('todos', JSON.stringify(state.todos));
+});
 export default store;

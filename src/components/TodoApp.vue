@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex"
+import {mapActions} from "vuex"
 import AddTask from "@/components/AddTask.vue"
 import TodoList from "@/components/TodoList.vue"
 //import {mapMutations, mapActions} from "vuex"
@@ -41,16 +41,16 @@ export default {
 
 	methods: {
 		...mapActions(["getTodosFromLocalStorage", "setTodosToLocalStorage"]),
-		...mapGetters(["allTodos"])
+		// ...mapGetters(["allTodos"])
 	},
-	computed:{
-		...mapGetters(["allTodos"])
-	}, 
-	watch:{
-		allTodos(){
-			console.log('watching...');
-		}
-	}
+	// computed:{
+	// 	...mapGetters(["allTodos"])
+	// }, 
+	// watch:{
+	// 	allTodos(){
+	// 		console.log('watching...');
+	// 	}
+	// }
 	// watch: {
 	// 	"todos":{todos(newValue, oldValue){
 	// 		console.log('watching...', newValue, oldValue)}, deep:true
