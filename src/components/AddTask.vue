@@ -1,5 +1,5 @@
 <template>
-	<form action="" class="todoForm" @submit.prevent="addNewTask">
+	<form action="" class="todoForm" @submit.prevent="sentTask">
 		<input class="input_task" 
 			type="text" 
 			placeholder="Enter your task..." 
@@ -12,21 +12,18 @@
 </template>
 
 <script>
+import {mapActions} from "vuex"
 export default {
-	// props: ["inputTask", "handleInputTask", "handleSubmit"]
 	data(){
 		return {
 			inputTask: ""
 		}
 	}, methods: {
-        addNewTask() {
-			if(this.inputTask){
-				this.$store.commit("addNewTask", this.inputTask)
-				this.inputTask = ""
-			}
-			
-		}	
-
+		...mapActions(["addNewTaskAction"]),
+		sentTask(){
+			this.addNewTaskAction(this.inputTask);
+			this.inputTask = "";
+		}
 	}
 }
 </script>
@@ -40,7 +37,6 @@ form {
 	height: 5rem;
 	margin: 0.5rem;
 }
-
 .input_task {
 	font-family: inherit;
 	font-size: inherit;
@@ -52,7 +48,6 @@ form {
 	padding: 2px 5px;
 	margin-right: 0.5rem;
 }
-
 .btn {
 	height: 40px;
 	width: 40px;

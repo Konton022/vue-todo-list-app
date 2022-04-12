@@ -18,7 +18,6 @@ export default {
 		AddTask, 
 		TodoList,
 	},
-
 	methods: {
 		...mapActions(["getTodosFromLocalStorage"]),
 	}	

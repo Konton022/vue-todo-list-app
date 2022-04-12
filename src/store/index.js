@@ -20,9 +20,16 @@ const store = createStore({
                 commit('updateTodos', JSON.parse(localStorage.todos));
             }
         },
-        setDraggedState({ commit }, draggedState) {
-            commit('updateTodos', draggedState);
+        setDraggedState({ commit }, [fromIndex, toIndex]) {
+            const currentItem = this.getters.allTodos[fromIndex];
+            const currentTodos = this.getters.allTodos
+            currentTodos.splice(fromIndex, 1)
+			currentTodos.splice(toIndex, 0, currentItem)
+            commit('updateTodos', currentTodos);
         },
+        addNewTaskAction({commit}, task){
+            commit("addNewTask", task)
+        }
     },
     mutations: {
         updateTodos(state, todos) {
