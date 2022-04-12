@@ -1,23 +1,30 @@
 <template>
-	<form action="" class="todoForm">
+	<form action="" class="todoForm" @submit.prevent="sentTask">
 		<input class="input_task" 
 			type="text" 
 			placeholder="Enter your task..." 
-			:value="inputTask" 
-			@input="handleInputTask"
-			@keypress.enter="handleSubmit"
+			v-model="inputTask" 
 		>
-		<button 
-			class="submit btn" 
-			v-on:click="handleSubmit">
+		<button class="submit btn">
 			<img class="btn__img" src="https://img.icons8.com/material-outlined/48/000000/add.png"/>
 		</button>
 	</form>
 </template>
 
 <script>
+import {mapActions} from "vuex"
 export default {
-	props: ["inputTask", "handleInputTask", "handleSubmit"]
+	data(){
+		return {
+			inputTask: ""
+		}
+	}, methods: {
+		...mapActions(["addNewTaskAction"]),
+		sentTask(){
+			this.addNewTaskAction(this.inputTask);
+			this.inputTask = "";
+		}
+	}
 }
 </script>
 
@@ -30,7 +37,6 @@ form {
 	height: 5rem;
 	margin: 0.5rem;
 }
-
 .input_task {
 	font-family: inherit;
 	font-size: inherit;
@@ -42,7 +48,6 @@ form {
 	padding: 2px 5px;
 	margin-right: 0.5rem;
 }
-
 .btn {
 	height: 40px;
 	width: 40px;
