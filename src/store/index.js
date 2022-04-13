@@ -80,12 +80,12 @@ const store = createStore({
         allTodosCounter(state) {
             return state.todos.length;
         },
-        filteredTodos(state, filter){
+        filteredTodos: state => filter => {
             switch (filter) {
                 case "done":
                         return state.todos.filter(item => item.isDone === true)
                 case "undone":
-                    return state.todos.filter(item => item.isDone === true)
+                    return state.todos.filter(item => item.isDone === false)
                 default:
                     return state.todos
             }

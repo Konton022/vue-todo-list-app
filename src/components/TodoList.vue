@@ -28,6 +28,8 @@
 			</li>
 		</ul>
 		<div v-else class="todo__empty_block">Nothing to do. Add new task!</div>
+
+		<div class="temp">{{filteredTodos}}</div>
 </template>
 <script>
 import TodoItem from "@/components/TodoItem.vue"
@@ -54,9 +56,6 @@ export default {
 			const toIndex = this.allTodos.findIndex(item => item.id === id);
 			this.setDraggedState([fromIndex, toIndex])	
 		},
-		// setFilteredTodos(filter){
-		// 	filteredTodos(filter)
-		// }
 	},
 	computed: {
 		...mapGetters([
