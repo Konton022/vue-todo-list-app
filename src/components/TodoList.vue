@@ -1,4 +1,13 @@
 <template>
+		<div class="filteredTodos">
+			<input type="radio" value="all" v-model="filter" checked>
+			<label>all</label>
+			<input type="radio" value="done" v-model="filter">
+			<label>done</label>
+			<input type="radio" value="undone" v-model="filter">
+			<label>undone</label>
+		</div>
+		{{filter}}
 		<ul 
 			v-if="allTodosCounter" 
 			@dragover.prevent 
@@ -24,6 +33,11 @@
 import TodoItem from "@/components/TodoItem.vue"
 import { mapGetters, mapActions } from "vuex"
 export default {
+	data(){
+		return {
+			filter: 'all',
+		}
+	},
 	components: {
 		TodoItem
 	},
@@ -40,11 +54,15 @@ export default {
 			const toIndex = this.allTodos.findIndex(item => item.id === id);
 			this.setDraggedState([fromIndex, toIndex])	
 		},
+		// setFilteredTodos(filter){
+		// 	filteredTodos(filter)
+		// }
 	},
 	computed: {
 		...mapGetters([
 			"allTodosCounter", 
-			"allTodos"
+			"allTodos",
+			"filteredTodos"
 		]),
 	}
 }
