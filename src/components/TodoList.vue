@@ -1,4 +1,16 @@
 <template>
+		<div class="filter_wrapper">
+			<div class="filteredTodos">
+				<span>Filter:</span>
+				<input type="radio" value="all" v-model="filter" checked>
+				<label>all</label>
+				<input type="radio" value="done" v-model="filter">
+				<label>done</label>
+				<input type="radio" value="undone" v-model="filter">
+				<label>undone</label>
+			</div>
+		</div>
+		
 		<ul 
 			v-if="allTodosCounter" 
 			@dragover.prevent 
@@ -6,7 +18,7 @@
 			
 		>
 			<TodoItem 
-				v-for="todo in allTodos" 
+				v-for="todo in filteredTodos(filter)" 
 				:key="todo.id" 
 				:todo = "todo"
 				draggable="true"
@@ -24,6 +36,11 @@
 import TodoItem from "@/components/TodoItem.vue"
 import { mapGetters, mapActions } from "vuex"
 export default {
+	data(){
+		return {
+			filter: 'all',
+		}
+	},
 	components: {
 		TodoItem
 	},
@@ -43,9 +60,12 @@ export default {
 	},
 	computed: {
 		...mapGetters([
-			"allTodosCounter", 
-			"allTodos"
+			"allTodos",
+			"filteredTodos"
 		]),
+		allTodosCounter() {
+			return this.filteredTodos(this.filter).length
+		}
 	}
 }
 </script>
@@ -59,6 +79,12 @@ export default {
 		font-weight: 700;
 		margin-top: 2rem;
 		
+	}
+	.filter_wrapper {
+		display: flex
+	}
+	.filteredTodos {
+		margin: 8px;
 	}
 	
 </style>

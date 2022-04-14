@@ -34,7 +34,7 @@ form {
 	display: flex;
 	justify-content: space-between;
 	align-content:flex-end;
-	height: 5rem;
+	height: fit-content;
 	margin: 0.5rem;
 }
 .input_task {
