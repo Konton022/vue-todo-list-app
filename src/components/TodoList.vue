@@ -1,13 +1,16 @@
 <template>
-		<div class="filteredTodos">
-			<input type="radio" value="all" v-model="filter" checked>
-			<label>all</label>
-			<input type="radio" value="done" v-model="filter">
-			<label>done</label>
-			<input type="radio" value="undone" v-model="filter">
-			<label>undone</label>
+		<div class="filter_wrapper">
+			<div class="filteredTodos">
+				<span>Filter:</span>
+				<input type="radio" value="all" v-model="filter" checked>
+				<label>all</label>
+				<input type="radio" value="done" v-model="filter">
+				<label>done</label>
+				<input type="radio" value="undone" v-model="filter">
+				<label>undone</label>
+			</div>
 		</div>
-		{{filter}}
+		
 		<ul 
 			v-if="allTodosCounter" 
 			@dragover.prevent 
@@ -15,7 +18,7 @@
 			
 		>
 			<TodoItem 
-				v-for="todo in allTodos" 
+				v-for="todo in filteredTodos(filter)" 
 				:key="todo.id" 
 				:todo = "todo"
 				draggable="true"
@@ -28,8 +31,6 @@
 			</li>
 		</ul>
 		<div v-else class="todo__empty_block">Nothing to do. Add new task!</div>
-
-		<div class="temp">{{filteredTodos}}</div>
 </template>
 <script>
 import TodoItem from "@/components/TodoItem.vue"
@@ -59,10 +60,12 @@ export default {
 	},
 	computed: {
 		...mapGetters([
-			"allTodosCounter", 
 			"allTodos",
 			"filteredTodos"
 		]),
+		allTodosCounter() {
+			return this.filteredTodos(this.filter).length
+		}
 	}
 }
 </script>
@@ -76,6 +79,12 @@ export default {
 		font-weight: 700;
 		margin-top: 2rem;
 		
+	}
+	.filter_wrapper {
+		display: flex
+	}
+	.filteredTodos {
+		margin: 8px;
 	}
 	
 </style>

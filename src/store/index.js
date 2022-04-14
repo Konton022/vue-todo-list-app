@@ -59,7 +59,6 @@ const store = createStore({
                 if (todo.id === todoId) {
                     todo.title = value;
                     todo.isEdit = !todo.isEdit;
-                    todo.isDone = false;
                 }
                 return todo;
             });
