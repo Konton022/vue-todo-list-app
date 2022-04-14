@@ -21,8 +21,13 @@ export default {
 	}, methods: {
 		...mapActions(["addNewTaskAction"]),
 		sentTask(){
-			this.addNewTaskAction(this.inputTask);
-			this.inputTask = "";
+			if(this.inputTask) {
+				this.addNewTaskAction(this.inputTask);
+				this.inputTask = "";
+			}
+			else{
+				alert('write new task and press Enter')
+			}
 		}
 	}
 }
