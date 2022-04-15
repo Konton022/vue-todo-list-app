@@ -1,9 +1,7 @@
-import { createStore } from 'vuex';
 import { nanoid } from 'nanoid';
-//import todos from "./todos"
 
-
-const store = createStore({
+const todos = {
+    namespaced: true,
     state() {
         return {
             todos: [
@@ -92,9 +90,6 @@ const store = createStore({
             }
         }
     },
-});
+}
 
-store.subscribe((mutations, state) => {
-    localStorage.setItem('todos', JSON.stringify(state.todos));
-});
-export default store;
+export default todos;
