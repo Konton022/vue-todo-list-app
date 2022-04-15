@@ -1,6 +1,6 @@
 <template>
   <HeaderApp class="header"/>
-  <router-view></router-view>
+  <router-view />
   <!-- <TodoApp class="todoApp"/> -->
   <FooterApp class="footer"/>
 
@@ -16,7 +16,7 @@ export default {
   name: 'App', 
   components: {
     HeaderApp,
-    TodoApp,
+    // TodoApp,
     FooterApp
   }
 }
