@@ -30,6 +30,6 @@ export default {
 		max-width: 900px;
 		margin: 1rem auto;
 		padding: 1rem;
-		min-height: 75vh;
+		min-height: 72vh;
 	}
 </style>

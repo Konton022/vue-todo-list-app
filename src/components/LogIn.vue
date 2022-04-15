@@ -2,29 +2,40 @@
 	<div class="container">
 
 		<h1>login please</h1>
-		<form action="" @submit.prevent="sendUserData">
-			<input type="mail" v-model="mail">
+		<form action="" @submit.prevent="singInUser">
+			<input type="mail" v-model="email">
 			<input type="password" v-model="password">
 			<button>submit</button>
 		</form>
 
-		<div>{{mail}}</div>
+		<div>{{email}}</div>
 		<div>{{password}}</div>
 
 	</div>
 </template>
 
 <script>
+
+import {mapActions} from "vuex"
 export default {
 	data(){
 		return {
-			mail: "",
+			email: "",
 			password: ""
 		}
 	},
 	methods: {
-		sendUserData(){
-			
+		...mapActions({login:'auth/login'}),
+		
+		async singInUser(){
+			await this.login(this.userData)	
+		},
+	},
+	computed:{
+		userData(){
+			return {
+				email: this.email,
+				password: this.password}
 		}
 	}
 }
@@ -32,6 +43,6 @@ export default {
 
 <style scoped>
 	.container {
-		min-height: 75vh;
+		min-height: 72vh;
 	}
 </style>
