@@ -1,7 +1,5 @@
 import { createStore } from 'vuex';
 import { nanoid } from 'nanoid';
-//import todos from "./todos"
-
 
 const store = createStore({
     state() {
