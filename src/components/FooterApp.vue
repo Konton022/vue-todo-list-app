@@ -1,6 +1,6 @@
 <template>
     <div class="footer">
-        <span>designed by</span>&nbsp;<a href="http://savelev-konst.site/" target="_blank">Konstantin Savelyev</a>
+        <span>designed by</span>&nbsp;<a href="https://savelev-konst.site/" target="_blank">Konstantin Savelyev</a>
     </div>
 </template>
 <style scoped>
