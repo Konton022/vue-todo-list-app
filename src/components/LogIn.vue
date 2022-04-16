@@ -6,7 +6,5 @@
 	</div>
 </template>
 <style scoped>
-	.container {
-		min-height: 75vh;
-	}
+	
 </style>

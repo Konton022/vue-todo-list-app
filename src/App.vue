@@ -1,6 +1,8 @@
 <template>
   <HeaderApp class="header"/>
-  <router-view />
+  <div class="container">
+    <router-view />
+  </div>
   <!-- <TodoApp class="todoApp"/> -->
   <FooterApp class="footer"/>
 
@@ -43,7 +45,7 @@ input:focus {
   height: 5vh;
   border-bottom: 1px solid black;
 }
-.todoApp {
+.container {
   min-height: 72vh;
 }
 .footer {

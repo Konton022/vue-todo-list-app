@@ -8,7 +8,7 @@ const router = createRouter({
     routes: [
         { path: '', component: LogIn },
         { path: '/todoapp', component: TodoApp },
-        { path: '*', component: PageNotFounded },
+        { path: '/:pathMatch(.*)', component: PageNotFounded },
     ],
 });
 
