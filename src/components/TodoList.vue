@@ -45,7 +45,7 @@ export default {
 		TodoItem
 	},
 	methods:{
-		...mapActions(["setDraggedState"]),
+		...mapActions({setDraggedState:"todos/setDraggedState"}),
 		onDragStart(event, id){
 			event.dataTransfer.dropEffect = 'move'
       		event.dataTransfer.effectAllowed = 'move'
@@ -59,10 +59,12 @@ export default {
 		},
 	},
 	computed: {
-		...mapGetters([
-			"allTodos",
-			"filteredTodos"
-		]),
+		...mapGetters({
+			allTodos:"todos/allTodos",
+			filteredTodos:"todos/filteredTodos"
+		}
+
+		),
 		allTodosCounter() {
 			return this.filteredTodos(this.filter).length
 		}

@@ -50,12 +50,12 @@ export default {
         }
     }, 
     methods: {
-        ...mapMutations([
-            "removeTask", 
-            "onEditTask",
-            "submitEditTask",
-            "checkTodoDone"
-        ])
+        ...mapMutations({
+            removeTask:"todos/removeTask", 
+            onEditTask:"todos/onEditTask",
+            submitEditTask:"todos/submitEditTask",
+            checkTodoDone:"todos/checkTodoDone"
+    })
     }
 }
 </script>

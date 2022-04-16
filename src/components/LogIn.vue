@@ -25,7 +25,7 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions({login:'auth/login'}),
+		...mapActions({login:'user/login'}),
 		
 		async singInUser(){
 			await this.login(this.userData)	

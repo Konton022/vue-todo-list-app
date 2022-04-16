@@ -19,7 +19,7 @@ export default {
 			inputTask: ""
 		}
 	}, methods: {
-		...mapActions(["addNewTaskAction"]),
+		...mapActions({addNewTaskAction:"todos/addNewTaskAction"}),
 		sentTask(){
 			if(this.inputTask) {
 				this.addNewTaskAction(this.inputTask);
