@@ -20,8 +20,8 @@ const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
     if (user) {
         const app = createApp(App);
-        app.use(store);
         app.use(router);
+        app.use(store);
         app.mount('#app');
     }
     console.log('user', user);
