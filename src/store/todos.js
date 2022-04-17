@@ -20,9 +20,12 @@ const todos = {
                 commit('updateTodos', JSON.parse(localStorage.todos));
             }
         },
-        setDraggedState({ commit }, [fromIndex, toIndex]) {
-            const currentItem = this.getters.allTodos[fromIndex];
-            const currentTodos = this.getters.allTodos;
+        setDraggedState({ commit, state }, [fromIndex, toIndex]) {
+            // console.log('drag', fromIndex, toIndex);
+            const currentItem = state.todos[fromIndex];
+            const currentTodos = state.todos;
+            // console.log(currentItem);
+            // console.log(currentTodos);
             currentTodos.splice(fromIndex, 1);
             currentTodos.splice(toIndex, 0, currentItem);
             commit('updateTodos', currentTodos);
@@ -73,7 +76,7 @@ const todos = {
         },
     },
     getters: {
-        allTodos(state) {
+        allTodos: (state) => {
             return state.todos;
         },
         allTodosCounter(state) {

@@ -7,18 +7,17 @@ export default {
             user: null,
         };
     },
-    actions: {},
     mutations: {
         setUser(state, payload) {
             state.user = payload;
             console.log('user state was changed:', state.user);
         },
     },
-    actions:{
-        signUp({commit}, {email, password}){
+    actions: {
+        signUp({ commit }, { email, password }) {
             console.log('user action');
-            commit("setUser", {email, password})
-        }
-    }
+            commit('setUser', { email, password });
+        },
+    },
     getters: {},
 };
