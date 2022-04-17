@@ -2,33 +2,43 @@
 	<div class="container">
 
 		<h1>login please</h1>
-		<form action="" @submit.prevent="singInUser">
+		<form action="" @submit.prevent="signUpUser">
 			<input type="mail" v-model="email">
 			<input type="password" v-model="password">
-			<button>submit</button>
+			<button>SignUp</button>
 		</form>
 
 		<div>{{email}}</div>
 		<div>{{password}}</div>
-
+		<div v-if="error" class="error">{{error}}</div>
 	</div>
 </template>
 
 <script>
 
 import {mapActions} from "vuex"
+
 export default {
 	data(){
 		return {
 			email: "",
-			password: ""
+			password: "",
+			error: null
 		}
 	},
 	methods: {
-		...mapActions({login:'user/login'}),
+		...mapActions({signUp:'user/signUp'}),
 		
-		async singInUser(){
-			await this.login(this.userData)	
+		async signUpUser(){
+			try {
+				await this.signUp(this.userData)
+				this.email = ""
+				this.password = ""		
+				this.$store.router.push('/todoapp')
+			} 
+			catch (err) {
+				this.error = err.message;
+			}
 		},
 	},
 	computed:{

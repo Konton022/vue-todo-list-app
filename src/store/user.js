@@ -1,4 +1,5 @@
-// import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/firebase/config';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default {
     namespaced: true,
@@ -14,9 +15,21 @@ export default {
         },
     },
     actions: {
-        signUp({ commit }, { email, password }) {
+        async signUp({ commit }, { email, password }) {
             console.log('user action');
-            commit('setUser', { email, password });
+            // setTimeout(() => {
+            //     commit('setUser', { email, password });
+            // }, 2000);
+            const res = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+            if (res) {
+                commit('setUser', res.user.uid);
+            } else {
+                throw new Error('could not complete signUp');
+            }
         },
     },
     getters: {},
