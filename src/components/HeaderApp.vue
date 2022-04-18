@@ -1,6 +1,7 @@
 <template>
 <div class="header__wrapper">
 	<div class="header__logo">Vue todo App</div>
+	<dir class="header_userInfo">You are logined as... {{user()}}</dir>
 	<div class="header__contacts">
 		<a href="https://github.com/Konton022/vue-todo-list-app" target="_blank">
 			<img class="header_img" src="https://img.icons8.com/ios-filled/50/000000/github.png" alt=""/>
@@ -14,8 +15,19 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
 
+methods:{
+	user(){
+		return this.userEmail? this.userEmail: null
+	}
+},
+
+computed: {
+	...mapGetters({userEmail: 'user/getUserEmail'})
+
+}
 }
 </script>
 

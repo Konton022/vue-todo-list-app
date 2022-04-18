@@ -1,15 +1,15 @@
 <template>
 	<div class="container">
 
-		<h1>login please</h1>
-		<form action="" @submit.prevent="signUpUser">
+		<h1>Sign In please</h1>
+		<form action="" @submit.prevent="signInUser">
 			<input type="mail" v-model="email">
 			<input type="password" v-model="password">
-			<button>SignUp</button>
+			<button>SignIn</button>
 		</form>
-
-		<div>{{email}}</div>
-		<div>{{password}}</div>
+		<div> Are you not registered? SIGN UP please 
+			<router-link to="/signup">here</router-link>
+		 </div>
 		<div v-if="error" class="error">{{error}}</div>
 	</div>
 </template>
@@ -28,19 +28,8 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions({signUp:'user/signUp', signIn: 'user/signIn'}),
-		
-		async signUpUser(){
-			try {
-				await this.signUp(this.userData)
-				this.email = ""
-				this.password = ""		
-				this.$router.push('/todoapp')
-			} 
-			catch (err) {
-				this.error = err.message;
-			}
-		},
+		...mapActions({signIn: 'user/signIn'}),
+
 		async signInUser(){
 			try {
 				await this.signIn(this.userData)

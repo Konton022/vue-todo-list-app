@@ -1,5 +1,8 @@
 import { auth } from '@/firebase/config';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+} from 'firebase/auth';
 
 export default {
     namespaced: true,
@@ -22,19 +25,23 @@ export default {
                 password
             );
             if (res) {
-                commit('setUser', res.user.uid);
+                commit('setUser', res.user);
             } else {
                 throw new Error('could not complete signUp');
             }
         },
-        async signIn({commit}, {email, password}) {
+        async signIn({ commit }, { email, password }) {
             const res = await signInWithEmailAndPassword(auth, email, password);
             if (res) {
-                commit('setUser', res.user.uid);
+                commit('setUser', res.user);
             } else {
                 throw new Error('could not complete signIn');
             }
-        }
+        },
     },
-    getters: {},
+    getters: {
+        getUserEmail(state) {
+            return state.user.email;
+        },
+    },
 };
