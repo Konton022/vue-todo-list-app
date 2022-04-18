@@ -19,6 +19,7 @@
 import {mapActions} from "vuex"
 
 export default {
+
 	data(){
 		return {
 			email: "",
@@ -27,14 +28,25 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions({signUp:'user/signUp'}),
+		...mapActions({signUp:'user/signUp', signIn: 'user/signIn'}),
 		
 		async signUpUser(){
 			try {
 				await this.signUp(this.userData)
 				this.email = ""
 				this.password = ""		
-				this.$store.router.push('/todoapp')
+				this.$router.push('/todoapp')
+			} 
+			catch (err) {
+				this.error = err.message;
+			}
+		},
+		async signInUser(){
+			try {
+				await this.signIn(this.userData)
+				this.email = ""
+				this.password = ""		
+				this.$router.push('/todoapp')
 			} 
 			catch (err) {
 				this.error = err.message;
