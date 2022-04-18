@@ -40,8 +40,8 @@ export default {
         },
     },
     getters: {
-        getUserEmail(state) {
-            return state.user.email;
+        getUser(state) {
+            return state.user;
         },
     },
 };

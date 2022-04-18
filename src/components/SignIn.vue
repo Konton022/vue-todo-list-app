@@ -1,6 +1,5 @@
 <template>
-	<div class="container">
-
+	<div class="login_form">
 		<h1>Sign In please</h1>
 		<form action="" @submit.prevent="signInUser">
 			<input type="mail" v-model="email">
@@ -53,9 +52,13 @@ export default {
 </script>
 
 <style scoped>
+	h1{
+		color: rgb(16, 16, 220)
+	}
+	.login_form {
+		box-shadow: 0 0 5px grey;
+		max-width: 50vw;
 
-	.container {
-		min-height: 72vh;
 	}
 
 </style>
