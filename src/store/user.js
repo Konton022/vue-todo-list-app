@@ -2,7 +2,10 @@ import { auth } from '@/firebase/config';
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged,
 } from 'firebase/auth';
+import store from '.';
 
 export default {
     namespaced: true,
@@ -38,6 +41,10 @@ export default {
                 throw new Error('could not complete signIn');
             }
         },
+        async logOut({ commit }) {
+            await signOut(auth);
+            commit('setUser', null);
+        },
     },
     getters: {
         getUser(state) {
@@ -45,3 +52,9 @@ export default {
         },
     },
 };
+
+const unsub = onAuthStateChanged(auth, (user) => {
+    // this.$store.commit('setAuthIsReady', true);
+    store.user.commit('setUser', user);
+    unsub();
+});

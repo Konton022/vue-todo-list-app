@@ -1,30 +1,42 @@
 <template>
 <div class="header__wrapper">
 	<div class="header__logo">Vue todo App</div>
-	<div class="header__contacts">
+	<div v-if="user" class="header__contacts">
 		<div class="header_userInfo">You are logined as... {{setUserName()}}</div>
+		<button @click="logOut" class="btn">logout</button>
 		<!-- <a href="https://github.com/Konton022/vue-todo-list-app" target="_blank">
 			<img class="header_img" src="https://img.icons8.com/ios-filled/50/000000/github.png" alt=""/>
 		</a>
 		<a href="https://t.me/KonstantinSavelev" target="_blank">
 			<img class="header_img" src="https://img.icons8.com/external-tal-revivo-bold-tal-revivo/48/000000/external-telegram-messenger-privately-held-company-with-cloud-based-instant-messaging-logo-bold-tal-revivo.png" alt=""/>
+	
 		</a> -->
-	</div>
+		</div>
+		<div v-else>
+			
+			<button>	
+				<router-link to="/">signIn</router-link>
+			</button>
+			
+			<button>	
+				<router-link to="/signup">signUp</router-link>
+			</button>
+		</div>
+	
 </div>
 
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 export default {
 
 methods:{
+	...mapActions({logOut: 'user/logOut'}),
 	setUserName(){
 		if(this.user) {
 			return this.user.email
-		} else {
-			return "anonymous"
-		}
+		} 
 	}
 },
 
