@@ -7,7 +7,7 @@ const todos = {
             todos: [
                 {
                     id: nanoid(4),
-                    title: 'hello world from VUEX!',
+                    title: 'hello world from VUE!',
                     isDone: false,
                     isEdit: false,
                 },
@@ -20,16 +20,19 @@ const todos = {
                 commit('updateTodos', JSON.parse(localStorage.todos));
             }
         },
-        setDraggedState({ commit }, [fromIndex, toIndex]) {
-            const currentItem = this.getters.allTodos[fromIndex];
-            const currentTodos = this.getters.allTodos
-            currentTodos.splice(fromIndex, 1)
-			currentTodos.splice(toIndex, 0, currentItem)
+        setDraggedState({ commit, state }, [fromIndex, toIndex]) {
+            // console.log('drag', fromIndex, toIndex);
+            const currentItem = state.todos[fromIndex];
+            const currentTodos = state.todos;
+            // console.log(currentItem);
+            // console.log(currentTodos);
+            currentTodos.splice(fromIndex, 1);
+            currentTodos.splice(toIndex, 0, currentItem);
             commit('updateTodos', currentTodos);
         },
-        addNewTaskAction({commit}, task){
-            commit("addNewTask", task)
-        }
+        addNewTaskAction({ commit }, task) {
+            commit('addNewTask', task);
+        },
     },
     mutations: {
         updateTodos(state, todos) {
@@ -73,23 +76,22 @@ const todos = {
         },
     },
     getters: {
-        allTodos(state) {
+        allTodos: (state) => {
             return state.todos;
         },
         allTodosCounter(state) {
             return state.todos.length;
         },
-        filteredTodos: state => filter => {
+        filteredTodos: (state) => (filter) => {
             switch (filter) {
-                case "done":
-                        return state.todos.filter(item => item.isDone === true)
-                case "undone":
-                    return state.todos.filter(item => item.isDone === false)
+                case 'done':
+                    return state.todos.filter((item) => item.isDone === true);
+                case 'undone':
+                    return state.todos.filter((item) => item.isDone === false);
                 default:
-                    return state.todos
+                    return state.todos;
             }
-        }
+        },
     },
-}
-
+};
 export default todos;

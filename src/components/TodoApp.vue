@@ -19,7 +19,7 @@ export default {
 		TodoList,
 	},
 	methods: {
-		...mapActions(["getTodosFromLocalStorage"]),
+		...mapActions({getTodosFromLocalStorage:"todos/getTodosFromLocalStorage"}),
 	}	
 }
 </script>
