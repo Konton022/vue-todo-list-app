@@ -3,7 +3,6 @@
   <div class="container">
     <router-view />
   </div>
-  <!-- <TodoApp class="todoApp"/> -->
   <FooterApp class="footer"/>
 
 </template>
@@ -11,14 +10,12 @@
 <script>
 
 import HeaderApp from "@/components/HeaderApp.vue"
-// import TodoApp from "@/components/TodoApp.vue"
 import FooterApp from "@/components/FooterApp.vue"
 
 export default {
   name: 'App', 
   components: {
     HeaderApp,
-    // TodoApp,
     FooterApp
   }
 }
@@ -43,13 +40,13 @@ input:focus {
 }
 .header {
   height: 5vh;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgb(151,144,144);
 }
 .container {
-  min-height: 72vh;
+  min-height: 80vh;
 }
 .footer {
   height: 5vh;
-  border-top: 1px solid black;
+  border-top: 1px solid rgb(151,144,144);
 }
 </style>

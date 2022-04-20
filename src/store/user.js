@@ -10,7 +10,7 @@ const user = {
     state() {
         return {
             user: null,
-            isUserAuth: false
+            isUserAuth: false,
         };
     },
     mutations: {
@@ -21,7 +21,7 @@ const user = {
         setUserAuth(state, payload) {
             state.isUserAuth = payload;
             console.log('isAuth state was changed:', state.isUserAuth);
-        }
+        },
     },
     actions: {
         async signUp({ commit }, { email, password }) {
@@ -32,7 +32,7 @@ const user = {
             );
             if (res) {
                 commit('setUser', res.user);
-                commit('setUserAuth', true)
+                commit('setUserAuth', true);
             } else {
                 throw new Error('could not complete signUp');
             }
@@ -41,7 +41,7 @@ const user = {
             const res = await signInWithEmailAndPassword(auth, email, password);
             if (res) {
                 commit('setUser', res.user);
-                commit('setUserAuth', true)
+                commit('setUserAuth', true);
             } else {
                 throw new Error('could not complete signIn');
             }
@@ -49,7 +49,7 @@ const user = {
         async logOut({ commit }) {
             await signOut(auth);
             commit('setUser', null);
-            commit('setUserAuth', false)
+            commit('setUserAuth', false);
         },
     },
     getters: {
@@ -59,15 +59,4 @@ const user = {
     },
 };
 
-// const unsub = onAuthStateChanged(auth, (userdata) => {
-//     // this.$store.commit('setAuthIsReady', true);
-//     //user.commit('setUser', userdata)
-//     //unsub();
-//     console.log(user);
-//     console.log(userdata);
-//     user.mutations.setUser(user.state, userdata)
-// });
-// unsub()
-
-
-export default user
+export default user;

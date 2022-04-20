@@ -127,7 +127,7 @@ export default {
         text-decoration: line-through;
         color: #0175ff;
     }
-    @media (max-width: 400px) {
+    @media (max-width: 500px) {
         .todo_title {
             font-size:0.8rem;
         }
