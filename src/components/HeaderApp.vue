@@ -66,7 +66,7 @@ computed: {
 	.header__logo {
 		font-size: 2rem;
 		font-weight: 700;
-		margin: 0 auto;
+
 
 	}
 	.header__contacts{
@@ -97,6 +97,7 @@ computed: {
 	@media (max-width:500px) {
 		.header__logo {
 			font-size: 1.5rem;
+			margin: 0 auto;
 		}
 		.header_img{
 			width: 1.5rem;

@@ -62,7 +62,7 @@ export default {
 	}
 	form {
 		box-shadow: 0 0 5px rgb(201, 195, 195);
-		width: 50vw;
+		width: 430px;
 		padding: 1rem;
 		display: flex;
 		flex-direction: column;
@@ -106,7 +106,7 @@ export default {
 	a:hover{
 		text-decoration: underline;
 	}
-	@media (max-width:500px) {
+	@media (max-width: 500px) {
 		form{
 			width: 95vw;
 		}
