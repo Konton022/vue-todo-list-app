@@ -1,15 +1,17 @@
 <template>
-	<div class="login_form">
-		<h1>Sign In please</h1>
-		<form action="" @submit.prevent="signInUser">
-			<input type="mail" v-model="email">
-			<input type="password" v-model="password">
-			<button>SignIn</button>
-		</form>
-		<div> Are you not registered? SIGN UP please 
-			<router-link to="/signup">here</router-link>
-		 </div>
-		<div v-if="error" class="error">{{error}}</div>
+	<div class="wrapper">
+		<div class="login_form">
+			<h2>Sign In please</h2>
+			<form action="" @submit.prevent="signInUser">
+				<input class="input_login" type="mail" v-model="email" placeholder="email">
+				<input class="input_login" type="password" v-model="password" placeholder="password">
+				<button>SignIn</button>
+			</form>
+			<div> Are you not registered? SIGN UP please 
+				<router-link to="/signup">here</router-link>
+			</div>
+			<div v-if="error" class="error">{{error}}</div>
+		</div>
 	</div>
 </template>
 
@@ -52,13 +54,36 @@ export default {
 </script>
 
 <style scoped>
-	h1{
+	h2{
 		color: rgb(16, 16, 220)
 	}
-	.login_form {
-		box-shadow: 0 0 5px grey;
-		max-width: 50vw;
+	.wrapper {
+		display: flex;
+		justify-content: center;
+		min-height: inherit;
+		align-items: center;
 
+
+	}
+	.login_form {
+		box-shadow: 0 0 5px rgb(201, 195, 195);
+		max-width: 70vw;
+		padding: 10px;
+		display: flex;
+		flex-direction: column;
+
+	}
+	.login_input {
+		display: block;
+		font-family: inherit;
+		font-size: inherit;
+		line-height: inherit;
+		width:90%;
+		height: 36px;
+		border: none;
+		box-shadow: 0 0 5px rgb(151, 144, 144);
+		padding: 2px 5px;
+		margin-right: 0.5rem;
 	}
 
 </style>

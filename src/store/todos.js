@@ -7,7 +7,7 @@ const todos = {
             todos: [
                 {
                     id: nanoid(4),
-                    title: 'hello world from VUEX!',
+                    title: 'hello world from VUE!',
                     isDone: false,
                     isEdit: false,
                 },

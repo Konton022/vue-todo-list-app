@@ -1,7 +1,6 @@
 <template>
-	<div class="container">
-
-		<h1>Sign Up please</h1>
+	<div class="wrapper">
+		<h1>Registration...</h1>
 		<form action="" @submit.prevent="signUpUser">
 			<input type="mail" v-model="email">
 			<input type="password" v-model="password">
@@ -51,9 +50,5 @@ export default {
 </script>
 
 <style scoped>
-
-	.container {
-
-	}
 
 </style>

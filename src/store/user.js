@@ -3,15 +3,14 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
-    onAuthStateChanged,
 } from 'firebase/auth';
-import store from '.';
 
-export default {
+const user = {
     namespaced: true,
     state() {
         return {
             user: null,
+            isUserAuth: false
         };
     },
     mutations: {
@@ -19,6 +18,10 @@ export default {
             state.user = payload;
             console.log('user state was changed:', state.user);
         },
+        setUserAuth(state, payload) {
+            state.isUserAuth = payload;
+            console.log('isAuth state was changed:', state.isUserAuth);
+        }
     },
     actions: {
         async signUp({ commit }, { email, password }) {
@@ -29,6 +32,7 @@ export default {
             );
             if (res) {
                 commit('setUser', res.user);
+                commit('setUserAuth', true)
             } else {
                 throw new Error('could not complete signUp');
             }
@@ -37,6 +41,7 @@ export default {
             const res = await signInWithEmailAndPassword(auth, email, password);
             if (res) {
                 commit('setUser', res.user);
+                commit('setUserAuth', true)
             } else {
                 throw new Error('could not complete signIn');
             }
@@ -44,6 +49,7 @@ export default {
         async logOut({ commit }) {
             await signOut(auth);
             commit('setUser', null);
+            commit('setUserAuth', false)
         },
     },
     getters: {
@@ -53,8 +59,15 @@ export default {
     },
 };
 
-const unsub = onAuthStateChanged(auth, (user) => {
-    // this.$store.commit('setAuthIsReady', true);
-    store.user.commit('setUser', user);
-    unsub();
-});
+// const unsub = onAuthStateChanged(auth, (userdata) => {
+//     // this.$store.commit('setAuthIsReady', true);
+//     //user.commit('setUser', userdata)
+//     //unsub();
+//     console.log(user);
+//     console.log(userdata);
+//     user.mutations.setUser(user.state, userdata)
+// });
+// unsub()
+
+
+export default user
