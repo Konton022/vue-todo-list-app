@@ -1,5 +1,8 @@
 import { nanoid } from 'nanoid';
 
+import { ref, set, push } from "firebase/database"
+import { database } from '@/firebase/config';
+
 const todos = {
     namespaced: true,
     state() {
@@ -31,7 +34,19 @@ const todos = {
             commit('updateTodos', currentTodos);
         },
         addNewTaskAction({ commit }, task) {
-            commit('addNewTask', task);
+            const todo = {
+                id: nanoid(4),
+                title: task,
+                isDone: false,
+                isEdit: false,
+            }
+            push(ref(database, 'todos/'),
+                {
+                    task: todo
+                }
+            )
+            commit('addNewTask', todo);
+
         },
     },
     mutations: {
@@ -39,12 +54,7 @@ const todos = {
             state.todos = todos;
         },
         addNewTask(state, newTask) {
-            state.todos.push({
-                id: nanoid(4),
-                title: newTask,
-                isDone: false,
-                isEdit: false,
-            });
+            state.todos.push(newTask);
         },
         removeTask(state, id) {
             state.todos = state.todos.filter((todo) => todo.id !== id);
