@@ -12,14 +12,15 @@ import TodoList from "@/components/TodoList.vue"
 
 export default {
 	mounted() {
-		this.getTodosFromLocalStorage();
+		//this.getTodosFromLocalStorage();
+		this.subscribeToFirebase();
 	},
 	components: {
 		AddTask, 
 		TodoList,
 	},
 	methods: {
-		...mapActions({getTodosFromLocalStorage:"todos/getTodosFromLocalStorage"}),
+		...mapActions({getTodosFromLocalStorage:"todos/getTodosFromLocalStorage", subscribeToFirebase: 'todos/subscribeToFirebase'}),
 	}	
 }
 </script>

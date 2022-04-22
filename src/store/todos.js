@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 
-import { ref, set, push } from "firebase/database"
+import { ref, push, onValue } from "firebase/database"
 import { database } from '@/firebase/config';
 
 const todos = {
@@ -18,6 +18,19 @@ const todos = {
         };
     },
     actions: {
+
+        subscribeToFirebase({commit, rootGetters}){
+            const uid = rootGetters['user/getUserUid'];
+            const todoRef = ref(database, `user/${uid}/todos`);
+            onValue(todoRef, (snapshot) => {
+                const data = snapshot.val()
+                console.log(data);
+                const updatedTodos = Object.values(data)
+                commit('updateTodos', updatedTodos)
+
+            })
+        },
+
         getTodosFromLocalStorage({ commit }) {
             if (localStorage.todos) {
                 commit('updateTodos', JSON.parse(localStorage.todos));
@@ -33,19 +46,17 @@ const todos = {
             currentTodos.splice(toIndex, 0, currentItem);
             commit('updateTodos', currentTodos);
         },
-        addNewTaskAction({ commit }, task) {
+        addNewTaskAction({ rootGetters }, task) {
             const todo = {
                 id: nanoid(4),
                 title: task,
                 isDone: false,
                 isEdit: false,
             }
-            push(ref(database, 'todos/'),
-                {
-                    task: todo
-                }
-            )
-            commit('addNewTask', todo);
+            const uid = rootGetters['user/getUserUid'];
+            console.log(uid);
+            push(ref(database, `user/${uid}/todos/`),{...todo})
+            // commit('addNewTask', todo);
 
         },
     },
