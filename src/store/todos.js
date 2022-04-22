@@ -1,36 +1,25 @@
 import { nanoid } from 'nanoid';
 
-import { ref, push, onValue } from "firebase/database"
+import { ref, push, onValue } from 'firebase/database';
 import { database } from '@/firebase/config';
 
 const todos = {
     namespaced: true,
     state() {
         return {
-            todos: [
-                {
-                    id: nanoid(4),
-                    title: 'hello world from VUE!',
-                    isDone: false,
-                    isEdit: false,
-                },
-            ],
+            todos: [],
         };
     },
     actions: {
-
-        subscribeToFirebase({commit, rootGetters}){
+        subscribeToFirebase({ commit, rootGetters }) {
             const uid = rootGetters['user/getUserUid'];
             const todoRef = ref(database, `user/${uid}/todos`);
             onValue(todoRef, (snapshot) => {
-                const data = snapshot.val()
-                console.log(data);
-                const updatedTodos = Object.values(data)
-                commit('updateTodos', updatedTodos)
-
-            })
+                const data = snapshot.val();
+                const updatedTodos = data ? Object.values(data) : [];
+                commit('updateTodos', updatedTodos);
+            });
         },
-
         getTodosFromLocalStorage({ commit }) {
             if (localStorage.todos) {
                 commit('updateTodos', JSON.parse(localStorage.todos));
@@ -52,12 +41,9 @@ const todos = {
                 title: task,
                 isDone: false,
                 isEdit: false,
-            }
+            };
             const uid = rootGetters['user/getUserUid'];
-            console.log(uid);
-            push(ref(database, `user/${uid}/todos/`),{...todo})
-            // commit('addNewTask', todo);
-
+            push(ref(database, `user/${uid}/todos/`), { ...todo });
         },
     },
     mutations: {

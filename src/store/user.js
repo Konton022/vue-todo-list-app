@@ -3,6 +3,7 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
+    updateProfile,
 } from 'firebase/auth';
 
 const user = {
@@ -24,13 +25,14 @@ const user = {
         },
     },
     actions: {
-        async signUp({ commit }, { email, password }) {
+        async signUp({ commit }, { email, password, username }) {
             const res = await createUserWithEmailAndPassword(
                 auth,
                 email,
                 password
             );
             if (res) {
+                updateProfile(res.user, { displayName: username });
                 commit('setUser', res.user);
                 commit('setUserAuth', true);
             } else {
@@ -49,6 +51,7 @@ const user = {
         async logOut({ commit }) {
             await signOut(auth);
             commit('setUser', null);
+            commit('setUserUid', null);
             commit('setUserAuth', false);
         },
     },
@@ -56,9 +59,9 @@ const user = {
         getUser(state) {
             return state.user;
         },
-        getUserUid (state) {
-            return state.user.uid
-        }
+        getUserUid(state) {
+            return state.user.uid;
+        },
     },
 };
 

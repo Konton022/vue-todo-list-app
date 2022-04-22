@@ -28,7 +28,7 @@ methods:{
 	...mapActions({logOut: 'user/logOut'}),
 	setUserName(){
 		if(this.user) {
-			return this.user.email
+			return this.user.displayName
 		} 
 	}
 },
