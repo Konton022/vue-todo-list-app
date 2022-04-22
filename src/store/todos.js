@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 
-import { ref, push, onValue, update } from 'firebase/database';
+import { ref, push, onValue, update, remove } from 'firebase/database';
 import { database } from '@/firebase/config';
 
 const todos = {
@@ -47,13 +47,26 @@ const todos = {
             push(ref(database, `user/${uid}/todos/`), { ...todo });
         },
         setTodoDoneAction({ state, rootGetters }, key) {
-            console.log('key', key);
+            // console.log('key', key);
             const todo = state.todos[key];
-            console.log('todo', todo);
+            // console.log('todo', todo);
             const uid = rootGetters['user/getUserUid'];
             update(ref(database, `user/${uid}/todos/${key}`), {
                 isDone: !todo.isDone,
             });
+        },
+        setTodoEditAction({ state, rootGetters }, key) {
+            // console.log('key', key);
+            const todo = state.todos[key];
+            // console.log('todo', todo);
+            const uid = rootGetters['user/getUserUid'];
+            update(ref(database, `user/${uid}/todos/${key}`), {
+                isEdit: !todo.isEdit,
+            });
+        },
+        removeTodoAction({ rootGetters }, key) {
+            const uid = rootGetters['user/getUserUid'];
+            remove(ref(database, `user/${uid}/todos/${key}`));
         },
     },
     mutations: {

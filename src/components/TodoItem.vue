@@ -27,10 +27,10 @@
                     <div class="drag">
                         <img draggable="false" class="drag_img" src="https://img.icons8.com/fluency-systems-regular/48/000000/resize-four-directions.png"/>
                     </div>
-                    <div @click="onEditTask(todo.id)" class="edit">
+                    <div @click="setTodoEdit(todoKey)" class="edit">
                         <img draggable="false" class="edit_img" src="https://img.icons8.com/glyph-neue/64/000000/edit.png" alt=""/>
                     </div>
-                    <div class="remove" @click="removeTask(todo.id)">
+                    <div class="remove" @click="removeTodo(todoKey)">
                         <img draggable="false" class="remove_img" src="https://img.icons8.com/windows/32/000000/delete-forever.png" alt=""/>
                     </div>
                 </div>
@@ -58,7 +58,9 @@ export default {
             checkTodoDone:"todos/checkTodoDone"
         }),
         ...mapActions({
-            setTodoDone: "todos/setTodoDoneAction"
+            setTodoDone: "todos/setTodoDoneAction",
+            setTodoEdit: "todos/setTodoEditAction",
+            removeTodo: "todos/removeTodoAction"
         })
     }
 }
