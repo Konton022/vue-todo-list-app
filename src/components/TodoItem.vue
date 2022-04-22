@@ -13,14 +13,14 @@
                     <input  
                         type="checkbox" 
                         :checked="todo.isDone" 
-                        @change="checkTodoDone(todo.id)"
+                        @change="setTodoDone(todoKey)"
                     />
                     <div 
                         class="todo_title" 
                         :class="{text_through : todo.isDone}" 
                         @click="checkTodoDone(todo.id)"
                     >
-                        {{todo.title}}
+                        {{todo.title}} {{todoKey}}
                     </div>
                 </div>
                 <div class="todo_actions">
@@ -39,10 +39,11 @@
 </template>
 
 <script>
-import {mapMutations} from "vuex"
+import {mapMutations, mapActions} from "vuex"
 export default {
     props:[ 
-        "todo"
+        "todo",
+        "todoKey"
     ], 
     data() {
         return {
@@ -55,9 +56,14 @@ export default {
             onEditTask:"todos/onEditTask",
             submitEditTask:"todos/submitEditTask",
             checkTodoDone:"todos/checkTodoDone"
-    })
+        }),
+        ...mapActions({
+            setTodoDone: "todos/setTodoDoneAction"
+        })
     }
 }
+
+
 </script>
 
 <style scoped>

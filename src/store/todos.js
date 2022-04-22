@@ -1,13 +1,13 @@
 import { nanoid } from 'nanoid';
 
-import { ref, push, onValue } from 'firebase/database';
+import { ref, push, onValue, update } from 'firebase/database';
 import { database } from '@/firebase/config';
 
 const todos = {
     namespaced: true,
     state() {
         return {
-            todos: [],
+            todos: {},
         };
     },
     actions: {
@@ -16,7 +16,8 @@ const todos = {
             const todoRef = ref(database, `user/${uid}/todos`);
             onValue(todoRef, (snapshot) => {
                 const data = snapshot.val();
-                const updatedTodos = data ? Object.values(data) : [];
+                console.log('data', data);
+                const updatedTodos = data ? data : {};
                 commit('updateTodos', updatedTodos);
             });
         },
@@ -44,6 +45,15 @@ const todos = {
             };
             const uid = rootGetters['user/getUserUid'];
             push(ref(database, `user/${uid}/todos/`), { ...todo });
+        },
+        setTodoDoneAction({ state, rootGetters }, key) {
+            console.log('key', key);
+            const todo = state.todos[key];
+            console.log('todo', todo);
+            const uid = rootGetters['user/getUserUid'];
+            update(ref(database, `user/${uid}/todos/${key}`), {
+                isDone: !todo.isDone,
+            });
         },
     },
     mutations: {

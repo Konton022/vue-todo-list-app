@@ -17,14 +17,16 @@
 			@dragenter.prevent
 			
 		>
-			<TodoItem 
-				v-for="todo in filteredTodos(filter)" 
-				:key="todo.id" 
-				:todo = "todo"
+			<TodoItem
+				v-for="(value, key) in allTodos"
+				:key="key" 
+				:todo = "value"
+				:todoKey = "key"
 				draggable="true"
 				@dragstart="onDragStart($event, todo.id)"
 				@drop="onDrop($event, todo.id)"
 			/>
+
 			<hr />
 			<li >
 				Total tasks: <b>{{allTodosCounter}}</b>
@@ -66,7 +68,8 @@ export default {
 
 		),
 		allTodosCounter() {
-			return this.filteredTodos(this.filter).length
+			return Object.keys(this.allTodos).length
+			//return this.filteredTodos(this.filter).length
 		}
 	}
 }
