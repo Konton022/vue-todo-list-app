@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
-
-import { ref, set, push } from "firebase/database"
+import user from './user';
+import { ref, push } from 'firebase/database';
 import { database } from '@/firebase/config';
 
 const todos = {
@@ -39,14 +39,13 @@ const todos = {
                 title: task,
                 isDone: false,
                 isEdit: false,
-            }
-            push(ref(database, 'todos/'),
-                {
-                    task: todo
-                }
-            )
+            };
+            const uid = user.getters.getUser();
+            console.log(uid);
+            push(ref(database, 'user/' + '/todos/'), {
+                task: todo,
+            });
             commit('addNewTask', todo);
-
         },
     },
     mutations: {

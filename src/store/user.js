@@ -53,6 +53,9 @@ const user = {
         },
     },
     getters: {
+        getUserUid(state) {
+            return state.user.uid;
+        },
         getUser(state) {
             return state.user;
         },
