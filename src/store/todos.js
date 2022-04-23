@@ -8,17 +8,20 @@ const todos = {
     state() {
         return {
             todos: {},
+            isLoading: true,
         };
     },
     actions: {
         subscribeToFirebase({ commit, rootGetters }) {
+            commit('setLoadingStatus', true);
             const uid = rootGetters['user/getUserUid'];
             const todoRef = ref(database, `user/${uid}/todos`);
             onValue(todoRef, (snapshot) => {
                 const data = snapshot.val();
-                console.log('data', data);
+                // console.log('data', data);
                 const updatedTodos = data ? data : {};
                 commit('updateTodos', updatedTodos);
+                commit('setLoadingStatus', false);
             });
         },
         getTodosFromLocalStorage({ commit }) {
@@ -68,11 +71,23 @@ const todos = {
             const uid = rootGetters['user/getUserUid'];
             remove(ref(database, `user/${uid}/todos/${key}`));
         },
+        setEditedTodoAction({ rootGetters }, { value, key }) {
+            const uid = rootGetters['user/getUserUid'];
+            // const todo = state.todos[key];
+            update(ref(database, `user/${uid}/todos/${key}`), {
+                title: value,
+                isEdit: false,
+            });
+        },
     },
     mutations: {
         updateTodos(state, todos) {
             state.todos = todos;
         },
+        setLoadingStatus(state, value) {
+            state.isLoading = value;
+        },
+
         addNewTask(state, newTask) {
             state.todos.push(newTask);
         },
@@ -121,6 +136,9 @@ const todos = {
                 default:
                     return state.todos;
             }
+        },
+        getLoadingStatus(state) {
+            return state.isLoading;
         },
     },
 };

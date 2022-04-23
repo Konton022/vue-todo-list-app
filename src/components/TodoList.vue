@@ -1,38 +1,43 @@
 <template>
-		<div class="filter_wrapper">
-			<div class="filteredTodos">
-				<span>Filter:</span>
-				<input type="radio" value="all" v-model="filter" checked>
-				<label>all</label>
-				<input type="radio" value="done" v-model="filter">
-				<label>done</label>
-				<input type="radio" value="undone" v-model="filter">
-				<label>undone</label>
-			</div>
+		<div v-if="loadingStatus" class="loading">
+			loading.....
 		</div>
-		
-		<ul 
-			v-if="allTodosCounter" 
-			@dragover.prevent 
-			@dragenter.prevent
+		<div v-else class="loaded">
+			<div class="filter_wrapper">
+				<div class="filteredTodos">
+					<span>Filter:</span>
+					<input type="radio" value="all" v-model="filter" checked>
+					<label>all</label>
+					<input type="radio" value="done" v-model="filter">
+					<label>done</label>
+					<input type="radio" value="undone" v-model="filter">
+					<label>undone</label>
+				</div>
+			</div>
 			
-		>
-			<TodoItem
-				v-for="(value, key) in allTodos"
-				:key="key" 
-				:todo = "value"
-				:todoKey = "key"
-				draggable="true"
-				@dragstart="onDragStart($event, todo.id)"
-				@drop="onDrop($event, todo.id)"
-			/>
+			<ul 
+				v-if="allTodosCounter" 
+				@dragover.prevent 
+				@dragenter.prevent
+				
+			>
+				<TodoItem
+					v-for="(value, key) in allTodos"
+					:key="key" 
+					:todo = "value"
+					:todoKey = "key"
+					draggable="true"
+					@dragstart="onDragStart($event, todo.id)"
+					@drop="onDrop($event, todo.id)"
+				/>
 
-			<hr />
-			<li >
-				Total tasks: <b>{{allTodosCounter}}</b>
-			</li>
-		</ul>
-		<div v-else class="todo__empty_block">Nothing to do. Add new task!</div>
+				<hr />
+				<li >
+					Total tasks: <b>{{allTodosCounter}}</b>
+				</li>
+			</ul>
+			<div v-else class="todo__empty_block">Nothing to do. Add new task!</div>
+		</div>
 </template>
 <script>
 import TodoItem from "@/components/TodoItem.vue"
@@ -63,7 +68,8 @@ export default {
 	computed: {
 		...mapGetters({
 			allTodos:"todos/allTodos",
-			filteredTodos:"todos/filteredTodos"
+			filteredTodos:"todos/filteredTodos",
+			loadingStatus: "todos/getLoadingStatus",
 		}
 
 		),

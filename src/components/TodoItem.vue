@@ -6,7 +6,7 @@
                         class="todo_input"
                         type="text"  
                         v-model = "currentValueTask"
-                        @keypress.enter="submitEditTask([todo.id, currentValueTask])"
+                        @keypress.enter="setEditedTodo({key:todoKey, value:currentValueTask})"
                     >
                 </div>
                 <div v-else class="todo_message">
@@ -18,9 +18,9 @@
                     <div 
                         class="todo_title" 
                         :class="{text_through : todo.isDone}" 
-                        @click="checkTodoDone(todo.id)"
+                        @click="setTodoDone(todoKey)"
                     >
-                        {{todo.title}} {{todoKey}}
+                        {{todo.title}}
                     </div>
                 </div>
                 <div class="todo_actions">
@@ -60,7 +60,8 @@ export default {
         ...mapActions({
             setTodoDone: "todos/setTodoDoneAction",
             setTodoEdit: "todos/setTodoEditAction",
-            removeTodo: "todos/removeTodoAction"
+            removeTodo: "todos/removeTodoAction",
+            setEditedTodo: "todos/setEditedTodoAction"
         })
     }
 }
