@@ -24,9 +24,9 @@
                     </div>
                 </div>
                 <div class="todo_actions">
-                    <div class="drag">
+                    <!-- <div class="drag">
                         <img draggable="false" class="drag_img" src="https://img.icons8.com/fluency-systems-regular/48/000000/resize-four-directions.png"/>
-                    </div>
+                    </div> -->
                     <div @click="setTodoEdit(todoKey)" class="edit">
                         <img draggable="false" class="edit_img" src="https://img.icons8.com/glyph-neue/64/000000/edit.png" alt=""/>
                     </div>

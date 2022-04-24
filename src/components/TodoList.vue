@@ -1,6 +1,6 @@
 <template>
 		<div v-if="loadingStatus" class="loading">
-			loading.....
+			<img src="../assets/preloader.gif"  class="preloader_img" alt="">
 		</div>
 		<div v-else class="loaded">
 			<div class="filter_wrapper">
@@ -96,6 +96,10 @@ export default {
 	}
 	.filteredTodos {
 		margin: 8px;
+	}
+	.preloader_img {
+		width: 2rem;
+		padding: 3rem;
 	}
 	
 </style>
