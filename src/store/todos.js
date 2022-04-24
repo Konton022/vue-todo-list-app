@@ -1,6 +1,14 @@
 import { nanoid } from 'nanoid';
 
-import { ref, push, onValue, update, remove } from 'firebase/database';
+import {
+    ref,
+    push,
+    onValue,
+    update,
+    remove,
+    query,
+    equalTo,
+} from 'firebase/database';
 import { database } from '@/firebase/config';
 
 const todos = {
@@ -78,6 +86,14 @@ const todos = {
                 title: value,
                 isEdit: false,
             });
+        },
+        setFilteredTodoAction({ rootGetters }) {
+            const uid = rootGetters['user/getUserUid'];
+            const recentData = query(
+                ref(database, `user/${uid}/todos/`),
+                equalTo({ isDone: true })
+            );
+            console.log(recentData);
         },
     },
     mutations: {

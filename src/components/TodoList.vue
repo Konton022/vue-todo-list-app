@@ -8,7 +8,7 @@
 					<span>Filter:</span>
 					<input type="radio" value="all" v-model="filter" checked>
 					<label>all</label>
-					<input type="radio" value="done" v-model="filter">
+					<input type="radio" value="done" v-model="filter" @click="filterData">
 					<label>done</label>
 					<input type="radio" value="undone" v-model="filter">
 					<label>undone</label>
@@ -52,7 +52,7 @@ export default {
 		TodoItem
 	},
 	methods:{
-		...mapActions({setDraggedState:"todos/setDraggedState"}),
+		...mapActions({setDraggedState:"todos/setDraggedState", setFilteredTodo: "todos/setFilteredTodoAction"}),
 		onDragStart(event, id){
 			event.dataTransfer.dropEffect = 'move'
       		event.dataTransfer.effectAllowed = 'move'
@@ -64,6 +64,9 @@ export default {
 			const toIndex = this.allTodos.findIndex(item => item.id === id);
 			this.setDraggedState([fromIndex, toIndex])	
 		},
+		filterData() {
+			this.setFilteredTodo()
+		}
 	},
 	computed: {
 		...mapGetters({
