@@ -8,6 +8,9 @@ import {
     remove,
     query,
     equalTo,
+    // limitToFirst,
+    get,
+    orderByChild,
 } from 'firebase/database';
 import { database } from '@/firebase/config';
 
@@ -87,13 +90,19 @@ const todos = {
                 isEdit: false,
             });
         },
-        setFilteredTodoAction({ rootGetters }) {
+        setFilteredTodoAction({ rootGetters, commit }, filter) {
+            console.log(filter);
+            commit('setLoadingStatus', true);
             const uid = rootGetters['user/getUserUid'];
-            const recentData = query(
+            const que = query(
                 ref(database, `user/${uid}/todos/`),
-                equalTo({ isDone: true })
+                orderByChild('isEdit'),
+                equalTo(false)
             );
-            console.log(recentData);
+            get(que).then((snapshot) => {
+                commit('updateTodos', snapshot.val());
+                commit('setLoadingStatus', false);
+            });
         },
     },
     mutations: {

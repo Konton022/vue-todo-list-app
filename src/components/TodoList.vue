@@ -8,7 +8,7 @@
 					<span>Filter:</span>
 					<input type="radio" value="all" v-model="filter" checked>
 					<label>all</label>
-					<input type="radio" value="done" v-model="filter" @click="filterData">
+					<input type="radio" value="done" v-model="filter">
 					<label>done</label>
 					<input type="radio" value="undone" v-model="filter">
 					<label>undone</label>
@@ -53,19 +53,19 @@ export default {
 	},
 	methods:{
 		...mapActions({setDraggedState:"todos/setDraggedState", setFilteredTodo: "todos/setFilteredTodoAction"}),
-		onDragStart(event, id){
-			event.dataTransfer.dropEffect = 'move'
-      		event.dataTransfer.effectAllowed = 'move'
-			event.dataTransfer.setData("todoId", id)
-		},
-		onDrop(event, id){
-			const draggingId = event.dataTransfer.getData("todoId");
-			const fromIndex = this.allTodos.findIndex(item => item.id === draggingId);
-			const toIndex = this.allTodos.findIndex(item => item.id === id);
-			this.setDraggedState([fromIndex, toIndex])	
-		},
+		// onDragStart(event, id){
+		// 	event.dataTransfer.dropEffect = 'move'
+      	// 	event.dataTransfer.effectAllowed = 'move'
+		// 	event.dataTransfer.setData("todoId", id)
+		// },
+		// onDrop(event, id){
+		// 	const draggingId = event.dataTransfer.getData("todoId");
+		// 	const fromIndex = this.allTodos.findIndex(item => item.id === draggingId);
+		// 	const toIndex = this.allTodos.findIndex(item => item.id === id);
+		// 	this.setDraggedState([fromIndex, toIndex])	
+		// },
 		filterData() {
-			this.setFilteredTodo()
+			this.setFilteredTodo(this.filter)
 		}
 	},
 	computed: {
@@ -80,7 +80,8 @@ export default {
 			return Object.keys(this.allTodos).length
 			//return this.filteredTodos(this.filter).length
 		}
-	}
+	},
+	
 }
 </script>
 <style scoped>
