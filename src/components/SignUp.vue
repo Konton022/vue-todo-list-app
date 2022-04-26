@@ -2,6 +2,7 @@
 	<div class="wrapper">
 		<form action="" @submit.prevent="signUpUser">
 			<h2>Registration...</h2>
+				<input type="text" v-model="username" placeholder="Your name">
 				<input type="mail" v-model="email" placeholder="@email">
 				<input type="password" v-model="password" placeholder="password">
 				<button>register me</button>
@@ -19,6 +20,7 @@ export default {
 
 	data(){
 		return {
+			username: "",
 			email: "",
 			password: "",
 			error: null
@@ -30,6 +32,7 @@ export default {
 		async signUpUser(){
 			try {
 				await this.signUp(this.userData)
+				this.username = ""
 				this.email = ""
 				this.password = ""		
 				this.$router.push('/todoapp')
@@ -42,6 +45,7 @@ export default {
 	computed:{
 		userData(){
 			return {
+				username: this.username,
 				email: this.email,
 				password: this.password}
 		}

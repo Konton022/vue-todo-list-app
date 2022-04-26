@@ -6,31 +6,28 @@
                         class="todo_input"
                         type="text"  
                         v-model = "currentValueTask"
-                        @keypress.enter="submitEditTask([todo.id, currentValueTask])"
+                        @keypress.enter="setEditedTodo({key:todoKey, value:currentValueTask})"
                     >
                 </div>
                 <div v-else class="todo_message">
                     <input  
                         type="checkbox" 
                         :checked="todo.isDone" 
-                        @change="checkTodoDone(todo.id)"
+                        @change="setTodoDone(todoKey)"
                     />
                     <div 
                         class="todo_title" 
                         :class="{text_through : todo.isDone}" 
-                        @click="checkTodoDone(todo.id)"
+                        @click="setTodoDone(todoKey)"
                     >
                         {{todo.title}}
                     </div>
                 </div>
                 <div class="todo_actions">
-                    <div class="drag">
-                        <img draggable="false" class="drag_img" src="https://img.icons8.com/fluency-systems-regular/48/000000/resize-four-directions.png"/>
-                    </div>
-                    <div @click="onEditTask(todo.id)" class="edit">
+                    <div @click="setTodoEdit(todoKey)" class="edit">
                         <img draggable="false" class="edit_img" src="https://img.icons8.com/glyph-neue/64/000000/edit.png" alt=""/>
                     </div>
-                    <div class="remove" @click="removeTask(todo.id)">
+                    <div class="remove" @click="removeTodo(todoKey)">
                         <img draggable="false" class="remove_img" src="https://img.icons8.com/windows/32/000000/delete-forever.png" alt=""/>
                     </div>
                 </div>
@@ -39,10 +36,11 @@
 </template>
 
 <script>
-import {mapMutations} from "vuex"
+import {mapActions} from "vuex"
 export default {
     props:[ 
-        "todo"
+        "todo",
+        "todoKey"
     ], 
     data() {
         return {
@@ -50,14 +48,16 @@ export default {
         }
     }, 
     methods: {
-        ...mapMutations({
-            removeTask:"todos/removeTask", 
-            onEditTask:"todos/onEditTask",
-            submitEditTask:"todos/submitEditTask",
-            checkTodoDone:"todos/checkTodoDone"
-    })
+        ...mapActions({
+            setTodoDone: "todos/setTodoDoneAction",
+            setTodoEdit: "todos/setTodoEditAction",
+            removeTodo: "todos/removeTodoAction",
+            setEditedTodo: "todos/setEditedTodoAction"
+        })
     }
 }
+
+
 </script>
 
 <style scoped>

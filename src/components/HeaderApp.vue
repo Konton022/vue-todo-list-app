@@ -3,19 +3,11 @@
 	<div class="header__logo">Vue todo App</div>
 	<div v-if="user" class="header__contacts">
 		<div class="header_userInfo"><span>{{setUserName()}}</span></div>
-		<button @click="logOut" class="btn">logout</button>
-		<!-- <a href="https://github.com/Konton022/vue-todo-list-app" target="_blank">
-			<img class="header_img" src="https://img.icons8.com/ios-filled/50/000000/github.png" alt=""/>
-		</a>
-		<a href="https://t.me/KonstantinSavelev" target="_blank">
-			<img class="header_img" src="https://img.icons8.com/external-tal-revivo-bold-tal-revivo/48/000000/external-telegram-messenger-privately-held-company-with-cloud-based-instant-messaging-logo-bold-tal-revivo.png" alt=""/>
-	
-		</a> -->
-		</div>
-		<div v-else>	
+		<img @click="logOut" class="img_out" src="https://img.icons8.com/dotty/80/000000/exit.png"/>
+	</div>
+	<div v-else>	
 			<router-link to="/">login</router-link>
-		</div>
-	
+	</div>	
 </div>
 
 </template>
@@ -28,7 +20,7 @@ methods:{
 	...mapActions({logOut: 'user/logOut'}),
 	setUserName(){
 		if(this.user) {
-			return this.user.email
+			return this.user.displayName
 		} 
 	}
 },
@@ -56,9 +48,9 @@ computed: {
 	.header__wrapper{
 		display: flex;
 		justify-content: space-between;
-		flex-wrap: wrap;
-		align-content: center;
-		padding: 1rem 0;
+		flex-wrap: nowrap;
+		align-items:center;
+		padding: 0.5rem 0 1rem 0;
 		margin: 0 auto;
 		align-items:center;
 
@@ -71,7 +63,8 @@ computed: {
 	}
 	.header__contacts{
 		display: flex;
-		align-items: right;
+		align-items: center;
+
 	}
 
 	.header_userInfo{
@@ -81,13 +74,8 @@ computed: {
 		color: #0175ff;
 		font-weight: 700;
 	}
-	.btn {
-		border: none;
-		border-radius: 3px;
-		background-color: rgb(157, 157, 157);;
-		color: white;
-		font-weight: 700;
-		padding: 5px
+	.img_out {
+		width: 1.5rem;
 
 	}
 	.header_img {
@@ -97,11 +85,8 @@ computed: {
 	@media (max-width:500px) {
 		.header__logo {
 			font-size: 1.5rem;
-			margin: 0 auto;
+
 		}
-		.header_img{
-			width: 1.5rem;
-			margin-left: 0.2rem;
-		}
+
 	}
 </style>

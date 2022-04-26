@@ -6,12 +6,13 @@ import user from './user';
 
 const store = createStore({
     modules: {
-        todos,
         user,
+        todos,  
     },
 });
 
 store.subscribe((mutations, state) => {
+
     localStorage.setItem('todos', JSON.stringify(state.todos.todos));
 });
 

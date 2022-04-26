@@ -1,97 +1,132 @@
 import { nanoid } from 'nanoid';
 
+import {
+    ref,
+    push,
+    onValue,
+    update,
+    remove,
+    query,
+    equalTo,
+    get,
+    orderByChild,
+} from 'firebase/database';
+import { database } from '@/firebase/config';
+
 const todos = {
     namespaced: true,
     state() {
         return {
-            todos: [
-                {
-                    id: nanoid(4),
-                    title: 'hello world from VUE!',
-                    isDone: false,
-                    isEdit: false,
-                },
-            ],
+            todos: {},
+            isLoading: true,
+            todoFilter: "all"
         };
     },
     actions: {
-        getTodosFromLocalStorage({ commit }) {
-            if (localStorage.todos) {
-                commit('updateTodos', JSON.parse(localStorage.todos));
+        subscribeToFirebase({ commit, rootGetters }) {
+            commit('setLoadingStatus', true);
+            const uid = rootGetters['user/getUserUid'];
+            const todoRef = ref(database, `user/${uid}/todos`);
+            onValue(todoRef, (snapshot) => {
+                const data = snapshot.val();
+                // console.log('data', data);
+                const updatedTodos = data ? data : {};
+                commit('updateTodos', updatedTodos);
+                commit('setLoadingStatus', false);
+            });
+        },
+        addNewTaskAction({ rootGetters }, task) {
+            const todo = {
+                id: nanoid(4),
+                title: task,
+                isDone: false,
+                isEdit: false,
+            };
+            const uid = rootGetters['user/getUserUid'];
+            push(ref(database, `user/${uid}/todos/`), { ...todo });
+        },
+        setTodoDoneAction({ state, rootGetters }, key) {
+            // console.log('key', key);
+            const todo = state.todos[key];
+            // console.log('todo', todo);
+            const uid = rootGetters['user/getUserUid'];
+            update(ref(database, `user/${uid}/todos/${key}`), {
+                isDone: !todo.isDone,
+            });
+        },
+        setTodoEditAction({ state, rootGetters }, key) {
+            // console.log('key', key);
+            const todo = state.todos[key];
+            // console.log('todo', todo);
+            const uid = rootGetters['user/getUserUid'];
+            update(ref(database, `user/${uid}/todos/${key}`), {
+                isEdit: !todo.isEdit,
+            });
+        },
+        removeTodoAction({ rootGetters }, key) {
+            const uid = rootGetters['user/getUserUid'];
+            remove(ref(database, `user/${uid}/todos/${key}`));
+        },
+        setEditedTodoAction({ rootGetters }, { value, key }) {
+            const uid = rootGetters['user/getUserUid'];
+            // const todo = state.todos[key];
+            update(ref(database, `user/${uid}/todos/${key}`), {
+                title: value,
+                isEdit: false,
+            });
+        },
+        setFilteredTodoAction({ rootGetters, commit }, filter) {
+            // console.log(filter);
+            commit('updateTodoFilter', filter)
+            const uid = rootGetters['user/getUserUid'];
+            let que = null
+            switch (filter) {
+                case "done":
+                    que = query(
+                        ref(database, `user/${uid}/todos/`),
+                        orderByChild('isDone'),
+                        equalTo(true))
+                    break;
+                case "undone":
+                    que = query(
+                        ref(database, `user/${uid}/todos/`),
+                        orderByChild('isDone'),
+                        equalTo(false))
+                    break;
+                default:
+                    que = query(
+                        ref(database, `user/${uid}/todos/`),
+                        orderByChild('isDone'))
+                    break
             }
-        },
-        setDraggedState({ commit, state }, [fromIndex, toIndex]) {
-            // console.log('drag', fromIndex, toIndex);
-            const currentItem = state.todos[fromIndex];
-            const currentTodos = state.todos;
-            // console.log(currentItem);
-            // console.log(currentTodos);
-            currentTodos.splice(fromIndex, 1);
-            currentTodos.splice(toIndex, 0, currentItem);
-            commit('updateTodos', currentTodos);
-        },
-        addNewTaskAction({ commit }, task) {
-            commit('addNewTask', task);
+
+            get(que).then((snapshot) => {
+                commit('updateTodos', snapshot.val());  
+            });
+            
         },
     },
     mutations: {
         updateTodos(state, todos) {
             state.todos = todos;
         },
-        addNewTask(state, newTask) {
-            state.todos.push({
-                id: nanoid(4),
-                title: newTask,
-                isDone: false,
-                isEdit: false,
-            });
+        setLoadingStatus(state, value) {
+            state.isLoading = value;
         },
-        removeTask(state, id) {
-            state.todos = state.todos.filter((todo) => todo.id !== id);
-        },
-        onEditTask(state, id) {
-            state.todos.map((todo) => {
-                if (todo.id === id) {
-                    todo.isEdit = !todo.isEdit;
-                }
-                return todo;
-            });
-        },
-        submitEditTask(state, [todoId, value]) {
-            state.todos.map((todo) => {
-                if (todo.id === todoId) {
-                    todo.title = value;
-                    todo.isEdit = !todo.isEdit;
-                }
-                return todo;
-            });
-        },
-        checkTodoDone(state, id) {
-            state.todos.map((todo) => {
-                if (todo.id === id) {
-                    todo.isDone = !todo.isDone;
-                }
-                return todo;
-            });
-        },
+        updateTodoFilter(state, value) {
+            state.todoFilter = value
+        }   
     },
     getters: {
         allTodos: (state) => {
             return state.todos;
         },
-        allTodosCounter(state) {
-            return state.todos.length;
+        getLoadingStatus(state) {
+            return state.isLoading;
         },
-        filteredTodos: (state) => (filter) => {
-            switch (filter) {
-                case 'done':
-                    return state.todos.filter((item) => item.isDone === true);
-                case 'undone':
-                    return state.todos.filter((item) => item.isDone === false);
-                default:
-                    return state.todos;
-            }
-        },
+        getTodoFilter(state) {
+            return state.todoFilter
+        }
     },
 };
 export default todos;
