@@ -96,8 +96,8 @@ const todos = {
             const uid = rootGetters['user/getUserUid'];
             const que = query(
                 ref(database, `user/${uid}/todos/`),
-                orderByChild('isEdit'),
-                equalTo(false)
+                orderByChild('isDone'),
+                equalTo(filter == 'done' ? true : false)
             );
             get(que).then((snapshot) => {
                 commit('updateTodos', snapshot.val());

@@ -6,7 +6,7 @@
 			<div class="filter_wrapper">
 				<div class="filteredTodos">
 					<span>Filter:</span>
-					<input type="radio" value="all" v-model="filter" checked>
+					<input type="radio" value="all" v-model="filter">
 					<label>all</label>
 					<input type="radio" value="done" v-model="filter">
 					<label>done</label>
@@ -48,6 +48,11 @@ export default {
 			filter: 'all',
 		}
 	},
+	watch: {
+		filter(){
+			this.setFilteredTodo(this.filter)
+		}
+	},
 	components: {
 		TodoItem
 	},
@@ -64,9 +69,6 @@ export default {
 		// 	const toIndex = this.allTodos.findIndex(item => item.id === id);
 		// 	this.setDraggedState([fromIndex, toIndex])	
 		// },
-		filterData() {
-			this.setFilteredTodo(this.filter)
-		}
 	},
 	computed: {
 		...mapGetters({
