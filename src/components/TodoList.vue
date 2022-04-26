@@ -16,21 +16,15 @@
 			</div>
 			
 			<ul 
-				v-if="allTodosCounter" 
-				@dragover.prevent 
-				@dragenter.prevent
-				
+				v-if="allTodosCounter" 					
 			>
 				<TodoItem
 					v-for="(value, key) in allTodos"
 					:key="key" 
 					:todo = "value"
 					:todoKey = "key"
-					draggable="true"
-					@dragstart="onDragStart($event, todo.id)"
-					@drop="onDrop($event, todo.id)"
 				/>
-
+					{{getTodoFilter}}
 				<hr />
 				<li >
 					Total tasks: <b>{{allTodosCounter}}</b>
@@ -41,11 +35,11 @@
 </template>
 <script>
 import TodoItem from "@/components/TodoItem.vue"
-import { mapGetters, mapActions } from "vuex"
+import { mapGetters, mapActions, mapMutations } from "vuex"
 export default {
 	data(){
 		return {
-			filter: 'all',
+			filter: 'all'
 		}
 	},
 	watch: {
@@ -57,31 +51,29 @@ export default {
 		TodoItem
 	},
 	methods:{
-		...mapActions({setDraggedState:"todos/setDraggedState", setFilteredTodo: "todos/setFilteredTodoAction"}),
-		// onDragStart(event, id){
-		// 	event.dataTransfer.dropEffect = 'move'
-      	// 	event.dataTransfer.effectAllowed = 'move'
-		// 	event.dataTransfer.setData("todoId", id)
-		// },
-		// onDrop(event, id){
-		// 	const draggingId = event.dataTransfer.getData("todoId");
-		// 	const fromIndex = this.allTodos.findIndex(item => item.id === draggingId);
-		// 	const toIndex = this.allTodos.findIndex(item => item.id === id);
-		// 	this.setDraggedState([fromIndex, toIndex])	
-		// },
+		...mapActions(
+			{
+				//setDraggedState:"todos/setDraggedState", 
+				setFilteredTodo: "todos/setFilteredTodoAction"
+			}
+		),
+
 	},
 	computed: {
 		...mapGetters({
 			allTodos:"todos/allTodos",
-			filteredTodos:"todos/filteredTodos",
+			// filteredTodos:"todos/filteredTodos",
 			loadingStatus: "todos/getLoadingStatus",
+			getTodoFilter: "todos/getTodoFilter"
 		}
 
+		
 		),
 		allTodosCounter() {
 			return Object.keys(this.allTodos).length
 			//return this.filteredTodos(this.filter).length
-		}
+		},
+		
 	},
 	
 }

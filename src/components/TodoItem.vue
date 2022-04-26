@@ -52,10 +52,10 @@ export default {
     }, 
     methods: {
         ...mapMutations({
-            removeTask:"todos/removeTask", 
-            onEditTask:"todos/onEditTask",
-            submitEditTask:"todos/submitEditTask",
-            checkTodoDone:"todos/checkTodoDone"
+            // removeTask:"todos/removeTask", 
+            // onEditTask:"todos/onEditTask",
+            // submitEditTask:"todos/submitEditTask",
+            // checkTodoDone:"todos/checkTodoDone"
         }),
         ...mapActions({
             setTodoDone: "todos/setTodoDoneAction",

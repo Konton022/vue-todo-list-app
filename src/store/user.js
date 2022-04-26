@@ -17,11 +17,11 @@ const user = {
     mutations: {
         setUser(state, payload) {
             state.user = payload;
-            console.log('user state was changed:', state.user);
+            // console.log('user state was changed:', state.user);
         },
         setUserAuth(state, payload) {
             state.isUserAuth = payload;
-            console.log('isAuth state was changed:', state.isUserAuth);
+            // console.log('isAuth state was changed:', state.isUserAuth);
         },
     },
     actions: {

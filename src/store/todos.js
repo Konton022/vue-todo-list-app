@@ -8,7 +8,6 @@ import {
     remove,
     query,
     equalTo,
-    // limitToFirst,
     get,
     orderByChild,
 } from 'firebase/database';
@@ -20,6 +19,7 @@ const todos = {
         return {
             todos: {},
             isLoading: true,
+            todoFilter: "all"
         };
     },
     actions: {
@@ -35,21 +35,21 @@ const todos = {
                 commit('setLoadingStatus', false);
             });
         },
-        getTodosFromLocalStorage({ commit }) {
-            if (localStorage.todos) {
-                commit('updateTodos', JSON.parse(localStorage.todos));
-            }
-        },
-        setDraggedState({ commit, state }, [fromIndex, toIndex]) {
-            // console.log('drag', fromIndex, toIndex);
-            const currentItem = state.todos[fromIndex];
-            const currentTodos = state.todos;
-            // console.log(currentItem);
-            // console.log(currentTodos);
-            currentTodos.splice(fromIndex, 1);
-            currentTodos.splice(toIndex, 0, currentItem);
-            commit('updateTodos', currentTodos);
-        },
+        // getTodosFromLocalStorage({ commit }) {
+        //     if (localStorage.todos) {
+        //         commit('updateTodos', JSON.parse(localStorage.todos));
+        //     }
+        // },
+        // setDraggedState({ commit, state }, [fromIndex, toIndex]) {
+        //     // console.log('drag', fromIndex, toIndex);
+        //     const currentItem = state.todos[fromIndex];
+        //     const currentTodos = state.todos;
+        //     // console.log(currentItem);
+        //     // console.log(currentTodos);
+        //     currentTodos.splice(fromIndex, 1);
+        //     currentTodos.splice(toIndex, 0, currentItem);
+        //     commit('updateTodos', currentTodos);
+        // },
         addNewTaskAction({ rootGetters }, task) {
             const todo = {
                 id: nanoid(4),
@@ -92,17 +92,35 @@ const todos = {
         },
         setFilteredTodoAction({ rootGetters, commit }, filter) {
             console.log(filter);
-            commit('setLoadingStatus', true);
+            commit('updateTodoFilter', filter)
             const uid = rootGetters['user/getUserUid'];
-            const que = query(
-                ref(database, `user/${uid}/todos/`),
-                orderByChild('isDone'),
-                equalTo(filter == 'done' ? true : false)
-            );
+            let que = null
+            switch (filter) {
+                case "done":
+                    que = query(
+                        ref(database, `user/${uid}/todos/`),
+                        orderByChild('isDone'),
+                        equalTo(true))
+                    break;
+                case "undone":
+                    que = query(
+                        ref(database, `user/${uid}/todos/`),
+                        orderByChild('isDone'),
+                        equalTo(false))
+                    break;
+                default:
+                    que = query(
+                        ref(database, `user/${uid}/todos/`),
+                        orderByChild('isDone'))
+                    break
+            }
+
             get(que).then((snapshot) => {
                 commit('updateTodos', snapshot.val());
-                commit('setLoadingStatus', false);
+                // query(ref(database, `user/${uid}/todos/`), off())
+                // off(query(ref(database, `user/${uid}/todos/`)))    
             });
+            
         },
     },
     mutations: {
@@ -112,59 +130,66 @@ const todos = {
         setLoadingStatus(state, value) {
             state.isLoading = value;
         },
+        updateTodoFilter(state, value) {
+            state.todoFilter = value
+        }
 
-        addNewTask(state, newTask) {
-            state.todos.push(newTask);
-        },
-        removeTask(state, id) {
-            state.todos = state.todos.filter((todo) => todo.id !== id);
-        },
-        onEditTask(state, id) {
-            state.todos.map((todo) => {
-                if (todo.id === id) {
-                    todo.isEdit = !todo.isEdit;
-                }
-                return todo;
-            });
-        },
-        submitEditTask(state, [todoId, value]) {
-            state.todos.map((todo) => {
-                if (todo.id === todoId) {
-                    todo.title = value;
-                    todo.isEdit = !todo.isEdit;
-                }
-                return todo;
-            });
-        },
-        checkTodoDone(state, id) {
-            state.todos.map((todo) => {
-                if (todo.id === id) {
-                    todo.isDone = !todo.isDone;
-                }
-                return todo;
-            });
-        },
+        // addNewTask(state, newTask) {
+        //     state.todos.push(newTask);
+        // },
+        // removeTask(state, id) {
+        //     state.todos = state.todos.filter((todo) => todo.id !== id);
+        // },
+        // onEditTask(state, id) {
+        //     state.todos.map((todo) => {
+        //         if (todo.id === id) {
+        //             todo.isEdit = !todo.isEdit;
+        //         }
+        //         return todo;
+        //     });
+        // },
+        // submitEditTask(state, [todoId, value]) {
+        //     state.todos.map((todo) => {
+        //         if (todo.id === todoId) {
+        //             todo.title = value;
+        //             todo.isEdit = !todo.isEdit;
+        //         }
+        //         return todo;
+        //     });
+        // },
+        // checkTodoDone(state, id) {
+        //     state.todos.map((todo) => {
+        //         if (todo.id === id) {
+        //             todo.isDone = !todo.isDone;
+        //         }
+        //         return todo;
+        //     });
+        // },
     },
     getters: {
         allTodos: (state) => {
             return state.todos;
         },
-        allTodosCounter(state) {
-            return state.todos.length;
-        },
-        filteredTodos: (state) => (filter) => {
-            switch (filter) {
-                case 'done':
-                    return state.todos.filter((item) => item.isDone === true);
-                case 'undone':
-                    return state.todos.filter((item) => item.isDone === false);
-                default:
-                    return state.todos;
-            }
-        },
         getLoadingStatus(state) {
             return state.isLoading;
         },
+        getTodoFilter(state) {
+            return state.todoFilter
+        }
+        // allTodosCounter(state) {
+        //     return state.todos.length;
+        // },
+        // filteredTodos: (state) => (filter) => {
+        //     switch (filter) {
+        //         case 'done':
+        //             return state.todos.filter((item) => item.isDone === true);
+        //         case 'undone':
+        //             return state.todos.filter((item) => item.isDone === false);
+        //         default:
+        //             return state.todos;
+        //     }
+        // },
+        
     },
 };
 export default todos;
