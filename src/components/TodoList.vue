@@ -6,15 +6,15 @@
 			<div class="filter_wrapper">
 				<div class="filteredTodos">
 					<span>Filter:</span>
-					<input type="radio" value="all" v-model="filter">
-					<label>all</label>
-					<input type="radio" value="done" v-model="filter">
-					<label>done</label>
-					<input type="radio" value="undone" v-model="filter">
-					<label>undone</label>
+
+					<label v-for="{id, name, checked} in getFilters" :key="id">
+					
+						<input type="radio" :value="name" @change="setCheckedFilter(name)" :checked="checked">
+					{{name}}
+					</label> 
 				</div>
 			</div>
-			
+			{{checkedFilter}}
 			<ul 
 				v-if="allTodosCounter" 					
 			>
@@ -35,7 +35,7 @@
 </template>
 <script>
 import TodoItem from "@/components/TodoItem.vue"
-import { mapGetters, mapActions } from "vuex"
+import { mapGetters, mapActions, mapMutations } from "vuex"
 export default {
 	data(){
 		return {
@@ -53,10 +53,12 @@ export default {
 	methods:{
 		...mapActions(
 			{
-				//setDraggedState:"todos/setDraggedState", 
-				setFilteredTodo: "todos/setFilteredTodoAction"
+			setFilteredTodo: "todos/setFilteredTodoAction"
 			}
 		),
+		...mapMutations({
+			setCheckedFilter: "todos/setCheckedFilter"
+		})
 
 	},
 	computed: {
@@ -64,7 +66,9 @@ export default {
 			allTodos:"todos/allTodos",
 			// filteredTodos:"todos/filteredTodos",
 			loadingStatus: "todos/getLoadingStatus",
-			getTodoFilter: "todos/getTodoFilter"
+			getTodoFilter: "todos/getTodoFilter",
+			getFilters: "todos/getFilterArr",
+			checkedFilter: "todos/getCheckedFilter"
 		}
 
 		

@@ -19,7 +19,11 @@ const todos = {
         return {
             todos: {},
             isLoading: true,
-            todoFilter: "all"
+            filterArr: [
+                { id: 0, name: 'all', checked: true },
+                { id: 1, name: 'done', checked: false },
+                { id: 2, name: 'undone', checked: false },
+            ],
         };
     },
     actions: {
@@ -75,35 +79,39 @@ const todos = {
                 isEdit: false,
             });
         },
-        setFilteredTodoAction({ rootGetters, commit }, filter) {
+        setFilteredTodoAction({ rootGetters, commit }) {
             // console.log(filter);
-            commit('updateTodoFilter', filter)
+            const currentFilter = rootGetters['todos/getCheckedFilter'];
+            console.log(currentFilter);
+            // commit('updateTodoFilter', filter);
             const uid = rootGetters['user/getUserUid'];
-            let que = null
-            switch (filter) {
-                case "done":
+            let que = null;
+            switch (currentFilter.name) {
+                case 'done':
                     que = query(
                         ref(database, `user/${uid}/todos/`),
                         orderByChild('isDone'),
-                        equalTo(true))
+                        equalTo(true)
+                    );
                     break;
-                case "undone":
+                case 'undone':
                     que = query(
                         ref(database, `user/${uid}/todos/`),
                         orderByChild('isDone'),
-                        equalTo(false))
+                        equalTo(false)
+                    );
                     break;
                 default:
                     que = query(
                         ref(database, `user/${uid}/todos/`),
-                        orderByChild('isDone'))
-                    break
+                        orderByChild('isDone')
+                    );
+                    break;
             }
 
             get(que).then((snapshot) => {
-                commit('updateTodos', snapshot.val());  
+                commit('updateTodos', snapshot.val());
             });
-            
         },
     },
     mutations: {
@@ -114,8 +122,16 @@ const todos = {
             state.isLoading = value;
         },
         updateTodoFilter(state, value) {
-            state.todoFilter = value
-        }   
+            state.todoFilter = value;
+        },
+        setCheckedFilter(state, value) {
+            const checked = state.filterArr.map((item) => {
+                item.name === value
+                    ? (item.checked = true)
+                    : (item.checked = false);
+            });
+            state.checked = checked;
+        },
     },
     getters: {
         allTodos: (state) => {
@@ -125,8 +141,14 @@ const todos = {
             return state.isLoading;
         },
         getTodoFilter(state) {
-            return state.todoFilter
-        }
+            return state.todoFilter;
+        },
+        getFilterArr(state) {
+            return state.filterArr;
+        },
+        getCheckedFilter(state) {
+            return state.filterArr.filter((item) => item.checked == true);
+        },
     },
 };
 export default todos;
