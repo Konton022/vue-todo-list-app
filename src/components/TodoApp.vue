@@ -6,22 +6,14 @@
 </template>
 
 <script>
-//import {mapActions} from "vuex"
 import AddTask from "@/components/AddTask.vue"
 import TodoList from "@/components/TodoList.vue"
 
 export default {
-	mounted() {
-		//this.getTodosFromLocalStorage();
-		//this.subscribeToFirebase();
-	},
 	components: {
 		AddTask, 
 		TodoList,
 	},
-	methods: {
-		//...mapActions({getTodosFromLocalStorage:"todos/getTodosFromLocalStorage", subscribeToFirebase: 'todos/subscribeToFirebase'}),
-	}	
 }
 </script>
 

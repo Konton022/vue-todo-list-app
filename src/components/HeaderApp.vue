@@ -4,18 +4,10 @@
 	<div v-if="user" class="header__contacts">
 		<div class="header_userInfo"><span>{{setUserName()}}</span></div>
 		<img @click="logOut" class="img_out" src="https://img.icons8.com/dotty/80/000000/exit.png"/>
-		<!-- <a href="https://github.com/Konton022/vue-todo-list-app" target="_blank">
-			<img class="header_img" src="https://img.icons8.com/ios-filled/50/000000/github.png" alt=""/>
-		</a>
-		<a href="https://t.me/KonstantinSavelev" target="_blank">
-			<img class="header_img" src="https://img.icons8.com/external-tal-revivo-bold-tal-revivo/48/000000/external-telegram-messenger-privately-held-company-with-cloud-based-instant-messaging-logo-bold-tal-revivo.png" alt=""/>
-	
-		</a> -->
-		</div>
-		<div v-else>	
+	</div>
+	<div v-else>	
 			<router-link to="/">login</router-link>
-		</div>
-	
+	</div>	
 </div>
 
 </template>

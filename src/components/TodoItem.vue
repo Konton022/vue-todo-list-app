@@ -24,9 +24,6 @@
                     </div>
                 </div>
                 <div class="todo_actions">
-                    <!-- <div class="drag">
-                        <img draggable="false" class="drag_img" src="https://img.icons8.com/fluency-systems-regular/48/000000/resize-four-directions.png"/>
-                    </div> -->
                     <div @click="setTodoEdit(todoKey)" class="edit">
                         <img draggable="false" class="edit_img" src="https://img.icons8.com/glyph-neue/64/000000/edit.png" alt=""/>
                     </div>
@@ -39,7 +36,7 @@
 </template>
 
 <script>
-import {mapMutations, mapActions} from "vuex"
+import {mapActions} from "vuex"
 export default {
     props:[ 
         "todo",
@@ -51,12 +48,6 @@ export default {
         }
     }, 
     methods: {
-        ...mapMutations({
-            // removeTask:"todos/removeTask", 
-            // onEditTask:"todos/onEditTask",
-            // submitEditTask:"todos/submitEditTask",
-            // checkTodoDone:"todos/checkTodoDone"
-        }),
         ...mapActions({
             setTodoDone: "todos/setTodoDoneAction",
             setTodoEdit: "todos/setTodoEditAction",
