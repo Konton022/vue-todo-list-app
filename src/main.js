@@ -10,6 +10,7 @@ onAuthStateChanged(auth, (user) => {
         store.commit('user/setUser', user);
         store.commit('user/setUserAuth', true);
         store.dispatch('todos/subscribeToFirebase');
+        // store.dispatch('todos/setFilteredTodoAction');
         router.push('/todoapp');
     } else {
         router.push('/');
