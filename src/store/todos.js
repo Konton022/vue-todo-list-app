@@ -39,13 +39,14 @@ const todos = {
                 commit('setLoadingStatus', false);
             });
         },
-        addNewTaskAction({ rootGetters }, task) {
+        addNewTaskAction({ rootGetters, commit }, task) {
             const todo = {
                 id: nanoid(4),
                 title: task,
                 isDone: false,
                 isEdit: false,
             };
+            commit('setCheckedFilter', 'all')
             const uid = rootGetters['user/getUserUid'];
             push(ref(database, `user/${uid}/todos/`), { ...todo });
         },
@@ -79,12 +80,14 @@ const todos = {
                 isEdit: false,
             });
         },
-        setFilteredTodoAction({ rootGetters, commit }) {
-            // console.log(filter);
+        setFilteredTodoAction({ rootGetters, commit }, value) {
+            // console.log(value);
+            commit('setCheckedFilter', value)
             const currentFilter = rootGetters['todos/getCheckedFilter'];
-            console.log(currentFilter);
+            // console.log(currentFilter.name);
             // commit('updateTodoFilter', filter);
             const uid = rootGetters['user/getUserUid'];
+            // console.log(uid);
             let que = null;
             switch (currentFilter.name) {
                 case 'done':
@@ -110,7 +113,7 @@ const todos = {
             }
 
             get(que).then((snapshot) => {
-                commit('updateTodos', snapshot.val());
+                commit('updateTodos', snapshot.val()? snapshot.val() : {} );
             });
         },
     },
@@ -126,11 +129,16 @@ const todos = {
         },
         setCheckedFilter(state, value) {
             const checked = state.filterArr.map((item) => {
-                item.name === value
-                    ? (item.checked = true)
-                    : (item.checked = false);
+                // item.name == value? (item.checked = true) : (item.checked = false);
+                if(item.name == value) {
+                    item.checked = true
+                } else {
+                    item.checked = false 
+                }
+                return item
             });
-            state.checked = checked;
+            // console.log('checked', checked);
+            state.filterArr = checked;
         },
     },
     getters: {
@@ -147,7 +155,13 @@ const todos = {
             return state.filterArr;
         },
         getCheckedFilter(state) {
-            return state.filterArr.filter((item) => item.checked == true);
+            let filterOoj = null;
+            state.filterArr.forEach(item => {
+                if (item.checked === true) {
+                    filterOoj = item
+                }
+            })
+            return filterOoj
         },
     },
 };

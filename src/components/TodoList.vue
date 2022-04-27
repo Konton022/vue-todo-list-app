@@ -9,12 +9,12 @@
 
 					<label v-for="{id, name, checked} in getFilters" :key="id">
 					
-						<input type="radio" :value="name" @change="setCheckedFilter(name)" :checked="checked">
+						<input type="radio" :value="name" @change="setFilteredTodo(name)" :checked="checked">
 					{{name}}
 					</label> 
 				</div>
 			</div>
-			{{checkedFilter}}
+			
 			<ul 
 				v-if="allTodosCounter" 					
 			>
