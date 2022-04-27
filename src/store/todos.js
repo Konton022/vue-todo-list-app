@@ -50,19 +50,21 @@ const todos = {
             const uid = rootGetters['user/getUserUid'];
             push(ref(database, `user/${uid}/todos/`), { ...todo });
         },
-        setTodoDoneAction({ state, rootGetters }, key) {
+        setTodoDoneAction({ state, rootGetters, commit }, key) {
             // console.log('key', key);
             const todo = state.todos[key];
             // console.log('todo', todo);
+            commit('setCheckedFilter', 'all')
             const uid = rootGetters['user/getUserUid'];
             update(ref(database, `user/${uid}/todos/${key}`), {
                 isDone: !todo.isDone,
             });
         },
-        setTodoEditAction({ state, rootGetters }, key) {
+        setTodoEditAction({ state, rootGetters, commit }, key) {
             // console.log('key', key);
             const todo = state.todos[key];
             // console.log('todo', todo);
+            commit('setCheckedFilter', 'all')
             const uid = rootGetters['user/getUserUid'];
             update(ref(database, `user/${uid}/todos/${key}`), {
                 isEdit: !todo.isEdit,
